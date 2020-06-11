@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}<title>반가워요. </title>{% endblock %}
+
+{% block content %}
+<div style="width: 60%; min-height: 100vh; margin-top: 7vh;">
+
+    <div class="w-100 bg-white border p-3 rounded">
+        즐겨찾기
+    </div>
+    <hr />
+
+    <div class="post-field">
+        {% include 'app_main/_post.html' %}
+    </div>
+
+    <div class="w-100 bg-white border p-3 rounded mb-3">
+        더보기
+    </div>
+</div>
+
+{% include 'app_main/_profile_box.html' %}
+
+{% load static %}
+<script src="{% static 'js/dashboard.js' %}"></script>
+{% include 'modal.html' %}
+
+{% endblock %}

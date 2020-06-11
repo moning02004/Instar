@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}<title>로그인</title>{% endblock %}
+
+{% block content %}
+<div class="text-center pt-3">
+    <div class="border rounded p-3 bg-white mx-auto" style="width: 30%;">
+        <a href="{% url 'app_main:main' %}" class="logo-font h1 d-block mb-3">instar</a>
+        <form action="{% url 'app_user:login' %}" method="post"> {% csrf_token %}
+            {% for field in form %}
+                <div class="form-group">
+                    {{ field | add_class:'form-control'}}
+                </div>
+            {% endfor %}
+            <button class="btn border w-100 bg-primary text-white" type="submit">로그인</button>
+            <hr />
+            비밀번호를 잊으셨나요?
+        </form>
+    </div>
+
+    <div class="border rounded p-3 bg-white mx-auto mt-4" style="width: 30%;">
+        <div>계정이 없으신가요? <a href="{% url 'app_user:register' %}" class="">가입하기</a></div>
+    </div>
+</div>
+{% endblock %}

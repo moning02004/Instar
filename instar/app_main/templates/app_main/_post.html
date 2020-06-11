@@ -1,0 +1,28 @@
+<div class="card mb-3 post">
+    <div class="card-header bg-white">
+        <div class="d-flex">
+            <a href="{% url 'app_user:profile' user.id %}" class="my-auto"><b>누구</b></a>
+            <button class="btn p-0 ml-auto post-modal"><i class="fas fa-ellipsis-v"></i></button>
+        </div>
+    </div>
+    <div class="card-body text-center"><img width='100%' src="https://cdn.pixabay.com/photo/2016/09/16/19/18/night-1674906_960_720.png" /></div>
+    <div class="card-footer bg-white">
+        <button class="btn"><i class="far fa-heart font-size-13"></i><small>10</small></button>
+        <button class="btn"><i class="far fa-comment font-size-13"></i><small>10</small></button>
+
+        <div class="post-content">ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</div><span>더 보기</span>
+        <div class="my-3">
+            <div><b>kauewjygf</b> zzz</div>
+            <div><b>jwdbhe</b> zzz</div>
+        </div>
+
+        <form action="" method="post">{% csrf_token %}
+            <div class="input-group">
+                <input class="form-control" name="comment" placeholder="게시"/>
+                <div class="input-group-prepend">
+                    <button class="btn border">게시</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
