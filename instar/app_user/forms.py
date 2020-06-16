@@ -15,7 +15,7 @@ class UserRegisterForm(UserCreationForm):
     password2 = forms.CharField(widget=PasswordInput(attrs={'placeholder': '한 번 더 입력해주세요'}))
     name = forms.CharField(widget=TextInput(attrs={'placeholder': '이름을 입력해주세요'}))
     phone = forms.CharField(widget=TextInput(attrs={'placeholder': '휴대 전화번호를 입력해주세요'}))
-    
+
     class Meta:
         model = get_user_model()
         fields = ['username', 'password1', 'password2', 'name', 'phone']
@@ -25,3 +25,26 @@ class UserRegisterForm(UserCreationForm):
         user.email = user.username
         user.save()
         return user
+
+
+class UserUpdateForm(forms.ModelForm):
+    image = forms.FileField(label='프로필 사진', widget=forms.FileInput(attrs={'accept': 'image/*'}))
+    name = forms.CharField(label='이름', widget=TextInput(attrs={'placeholder': '이름을 입력해주세요'}))
+    phone = forms.CharField(label='전화번호', widget=TextInput(attrs={'placeholder': '휴대 전화번호를 입력해주세요'}))
+    sex = forms.ChoiceField(label='성별', choices=(('1', '남'), ('2', '여',)))
+    email = forms.CharField(label='이메일', widget=TextInput(attrs={'placeholder': '휴대 전화번호를 입력해주세요'}))
+    explain = forms.CharField(label='설명', widget=forms.Textarea(attrs={'rows': 5}))
+
+    class Meta:
+        model = get_user_model()
+        fields = ['image', 'name', 'email', 'sex', 'explain']
+
+
+class UserPasswordUpdateForm(forms.ModelForm):
+    current = forms.CharField(label='현재 비밀번호', widget=forms.PasswordInput(attrs={'placeholder': '현재 비밓번호를 입력하세요'}))
+    password1 = forms.CharField(label='새 비밀번호', widget=PasswordInput(attrs={'placeholder': '비밀번호를 입력하세요'}))
+    password2 = forms.CharField(label='새 비밀번호 확인', widget=PasswordInput(attrs={'placeholder': '한 번 더 입력해주세요'}))
+
+    class Meta:
+        model = get_user_model()
+        fields = ['current', 'password1', 'password2']

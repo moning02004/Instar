@@ -1,0 +1,9 @@
+<div id="m-detail">
+    <div class="modal">
+        <div class="modal-content">
+            <a href="{% url 'app_post:update' post.id %}" class="btn border-bottom w-100">게시물 편집</a>
+            <button class="btn border-bottom w-100 bg-danger text-white" id="delete" value="{{ post.id }}">게시물 삭제</button>
+            <button class="btn border-bottom w-100 cancel">취소</button>
+        </div>
+    </div>
+</div>

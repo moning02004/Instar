@@ -14,9 +14,12 @@
             </form>
         </div>
         <div class="position-absolute end">
-            <button class="btn"><i class="fas fa-compass font-size-13"></i></button>
+            <button class="btn upload-modal"><i class="fas fa-plus font-size-13"></i></button>
+            <a href="{% url 'app_post:list' %}?type=explore" class="btn"><i class="fas fa-compass font-size-13"></i></a>
             <button class="btn"><i class="fas fa-heart font-size-13"></i></button>
-            <button class="btn"><i class="fas fa-user font-size-13"></i></button>
+            <a href="{% url 'app_user:profile' user.id %}" class="btn"><i class="fas fa-user font-size-13"></i></a>
         </div>
     </div>
 </div>
+
+{% include 'app_post/create.html' %}

@@ -14,6 +14,9 @@
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/modal.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/image_slide.css' %}">
+    <script src="{% static 'js/csrf_token.js' %}"></script>
+    <script src="{% static 'js/modal.js' %}"></script>
 </head>
 <body>
     {% if page != 'login' and page != 'register' %}
@@ -26,8 +29,12 @@
         </div>
     </div>
 
-    <footer class="bg-light p-3 w-100" style="height: 10vh;">
-        <div>인스타 클론 코딩 ver 1.0</div>
+    <footer class="container bg-light p-3 w-100" style="height: 10vh;">
+        <div class="d-flex justify-content-between">
+            <div>인스타 클론 코딩 ver 1.0</div>
+            <a href="https://velog.io/@moning02004/series/%EC%9D%B8%EC%8A%A4%ED%83%80%EA%B7%B8%EB%9E%A8" target="_blank"><i class="fas fa-book font-size-13"></i></a>
+            <a href="#"><i class="fab fa-github font-size-13"></i></a>
+        </div>
     </footer>
 
 </body>

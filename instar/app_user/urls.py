@@ -10,4 +10,6 @@ urlpatterns = [
     path('logout', LogoutView.as_view(next_page=reverse_lazy('app_user:login')), name='logout'),
 
     path('<int:pk>/', views.UserProfileView.as_view(), name='profile'),
+    path('edit/password', views.UserPasswordView.as_view(), name='password_edit'),
+    path('edit/info', views.UserEditView.as_view(), name='profile_edit'),
 ]

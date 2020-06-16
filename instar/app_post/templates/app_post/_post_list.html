@@ -1,0 +1,7 @@
+<div class="row">
+    {% for post in post_list %}
+        <a class="border p-3 col-3 mb-3 bg-white" href="{% url 'app_post:detail' post.id %}">
+            <img width='100%' src="{{ post.get_main_file.file.url }}" />
+        </a>
+    {% endfor %}
+</div>

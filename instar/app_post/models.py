@@ -1,10 +1,12 @@
+from datetime import datetime, timezone
+
 from django.db import models
 
 from app_main.models import BaseModel
 
 
 def file_path(instance, filename):
-    return f'{instance.post.author.username}/{filename}'
+    return f'{instance.post.author.username}/{instance.post.id}/{filename}'
 
 
 class Tag(models.Model):
@@ -16,8 +18,15 @@ class Post(BaseModel):
     tag = models.ManyToManyField(Tag, through='TagPost', through_fields=('post', 'tag'))
 
     @property
-    def heart_count(self):
-        return self.heart_set.count()
+    def get_main_file(self):
+        return self.file_set.first()
+
+    @property
+    def different_day(self):
+        created = self.created
+        current = datetime.now(timezone.utc)
+        diff_hour = 24 * (current - created).days + int((current - created).seconds / 3600)
+        return f'{diff_hour}시간 전'
 
 
 class TagPost(models.Model):

@@ -1,0 +1,31 @@
+{% extends 'app_user/edit.html' %}
+
+{% block edit %}
+<div class="row">
+    <div style="width: 23%;"></div>
+    <h3>유정훈</h3>
+</div>
+<form action="" method="post">{% csrf_token %}
+    {% for field in form %}
+        <div class="form-group">
+            <div class="row">
+                {% if forloop.counter0 == 0 %}
+                    <div class="text-right my-auto mr-3" style="width: 23%;">
+                        <img src="https://cdn.pixabay.com/photo/2018/04/22/14/12/silhouette-3341132_960_720.png" alt="" style="width:64px; height: 64px;">
+                    </div>
+                    {{ field|add_class:'my-auto' }}
+                {% else %}
+                    <div class="text-right my-auto mr-3" style="width: 23%;">{{ field.label }}</div>
+                    <div style="width:70%;">{{ field|add_class:'form-control' }}</div>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+    <div class="row">
+        <div class="mr-3" style="width: 23%;"></div>
+        <button type="submit" class="btn border">제출</button>
+        <a href="#" class="btn ml-auto">탈퇴</a>
+        <div class="ml-auto"></div>
+    </div>
+</form>
+{% endblock %}

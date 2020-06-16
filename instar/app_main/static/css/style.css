@@ -59,9 +59,23 @@ body, html {
 
 .pre-box {
     font-size: 1rem;
-    line-height: 1rem;
+    line-height: 1.5rem;
     white-space: pre-wrap;
     white-space: -moz-pre-wrap;
     white-space: -o-pre-wrap;
     word-wrap: break-all;
  }
+
+ .post-content {
+    overflow-y: scroll;
+    -ms-overflow=style:none;
+ }
+ .post-content::-webkit-scrollbar {
+    display: none;
+ }
+.bg-select {
+    background-color: rgb(228,228,228);
+}
+textarea {
+    line
+}
