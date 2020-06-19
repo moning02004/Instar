@@ -1,12 +1,13 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
+from django.http import JsonResponse
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, DeleteView, UpdateView, CreateView
 
-from app_main.permissions import IsOwnerMixin
+from app_main.mixin import IsOwnerMixin
 from app_post.forms import PostUpdateForm
-from app_post.models import Post, File
+from app_post.models import Post, File, Heart
 
 
 class PostList(ListView):
@@ -55,3 +56,12 @@ class PostDeleteView(IsOwnerMixin, DeleteView):
     model = Post
     http_method_names = ['post']
     success_url = reverse_lazy('app_main:main')
+
+
+class PostHeartView(LoginRequiredMixin, CreateView):
+    def post(self, request, *args, **kwargs):
+        if request.is_ajax():
+            heart, is_created = Heart.objects.get_or_create(post_id=kwargs.get('pk'), author=request.user)
+            heart.delete() if not is_created else None
+            return JsonResponse(data={'data': is_created}, safe=False, status=200)
+        return JsonResponse(status=404, data={'data': 'Only Ajax'})

@@ -1,6 +1,6 @@
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse_lazy
 
 from app_post.models import Post, File
 from app_user.models import User
@@ -20,7 +20,7 @@ class PostTestCase(TestCase):
     def test_post_crud(self):
         # 생성
         self.client.login(username='user1@a.com', password='password1')
-        response = self.client.post(reverse('app_post:create'), format='multipart', data={
+        response = self.client.post(reverse_lazy('app_post:create'), format='multipart', data={
             'content': '테스트 1',
             'images': self.file
         })
@@ -80,3 +80,24 @@ class PostTestCase(TestCase):
         self.client.login(username='user2@a.com', password='password2')
         response = self.client.post(reverse_lazy('app_post:delete', args=(self.post.id,)))
         self.assertEqual(response.status_code, 403)
+
+    def test_heart(self):
+        self.client.login(username='user1@a.com', password='password1')
+
+        response = self.client.post(reverse_lazy('app_post:heart', args=(self.post.id,)))
+        self.assertEqual(response.status_code, 404)
+
+        ajax_header = {'HTTP_X_REQUESTED_WITH': 'XMLHttpRequest'}
+        response = self.client.post(reverse_lazy('app_post:heart', args=(self.post.id,)), **ajax_header)
+        self.assertEqual(response.status_code, 200)
+
+        self.post.refresh_from_db()
+        self.assertEqual(len(self.post.heart_set.all()), 1)
+        self.assertEqual(len(self.user.heart_set.all()), 1)
+
+        response = self.client.post(reverse_lazy('app_post:heart', args=(self.post.id,)), **ajax_header)
+        self.assertEqual(response.status_code, 200)
+
+        self.post.refresh_from_db()
+        self.assertEqual(len(self.post.heart_set.all()), 0)
+        self.assertEqual(len(self.user.heart_set.all()), 0)
