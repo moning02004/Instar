@@ -29,7 +29,12 @@
                 <div class="ml-3 pre-box">{{ post.content }}</div>
             </div>
             <div class="card-body border-bottom post-content" style="height: 25vh;">
+                {% for comment in post.comment_set.all %}
+                    {% if comment.comment is None %}
+                        <div><b class="mr-2">{{ comment.author.name }}</b> {{ comment.content }}</div>
+                    {% endif %}
 
+                {% endfor %}
             </div>
             <div class="card-body border-bottom">
                 <button class="btn"><i class="far fa-heart font-size-13"></i><small>{{ post.heart_set.all|length }}</small></button>

@@ -54,7 +54,6 @@ body, html {
 .post-content {
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;
 }
 
 .pre-box {
@@ -78,4 +77,8 @@ body, html {
 }
 textarea {
     line
+}
+
+.cursor-pointer {
+    cursor: pointer;
 }

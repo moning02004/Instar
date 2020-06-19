@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import AccessMixin, LoginRequiredMixin
+from django.urls import reverse_lazy
 from django.views.generic.base import TemplateResponseMixin
 from django.views.generic.detail import SingleObjectMixin
 
@@ -6,6 +7,7 @@ from django.views.generic.detail import SingleObjectMixin
 class IsOwnerMixin(TemplateResponseMixin, LoginRequiredMixin, SingleObjectMixin):
     success_template_name = None
     failed_template_name = None
+    login_url = reverse_lazy('app_user:login')
 
     def dispatch(self, request, *args, **kwargs):
         instance = self.get_object()

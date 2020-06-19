@@ -34,7 +34,7 @@ SESSION_COOKIE_AGE = 60 * 60
 SESSION_SAVE_EVERY_REQUEST = True
 
 AUTH_USER_MODEL = 'app_user.User'
-LOGIN_REDIRECT_URL = reverse_lazy('app_main:main')
+LOGIN_REDIRECT_URL = '/'
 
 # Application definition
 INSTALLED_APPS = [
@@ -47,6 +47,7 @@ INSTALLED_APPS = [
 
     'app_main',
     'app_post',
+    'app_comment',
     'app_user',
 ]
 

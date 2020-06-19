@@ -1,9 +1,7 @@
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
-from django.http import Http404, HttpResponse
 from django.shortcuts import redirect
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, DeleteView, UpdateView, CreateView
 
 from app_main.permissions import IsOwnerMixin
@@ -11,7 +9,7 @@ from app_post.forms import PostUpdateForm
 from app_post.models import Post, File
 
 
-class PostList(LoginRequiredMixin, ListView):
+class PostList(ListView):
     template_name = 'app_post/list.html'
     context_object_name = 'post_list'
 
@@ -25,6 +23,7 @@ class PostList(LoginRequiredMixin, ListView):
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):
+    login_url = reverse_lazy('app_user:login')
     queryset = Post.objects.all()
     http_method_names = ['post']
 
@@ -41,17 +40,18 @@ class PostDetail(LoginRequiredMixin, DetailView):
     context_object_name = 'post'
 
 
-class PostDeleteView(IsOwnerMixin, DeleteView):
-    model = Post
-    failed_template_name = 'error.html'
-    success_url = reverse_lazy('app_main:main')
-
-
-class PostUpdateView(UpdateView):
+class PostUpdateView(IsOwnerMixin, UpdateView):
     queryset = Post.objects.all()
     template_name = 'app_post/update.html'
     form_class = PostUpdateForm
     context_object_name = 'post'
+    failed_template_name = 'error.html'
 
     def get_success_url(self):
         return f'/post/{self.get_object().id}'
+
+
+class PostDeleteView(IsOwnerMixin, DeleteView):
+    model = Post
+    http_method_names = ['post']
+    success_url = reverse_lazy('app_main:main')

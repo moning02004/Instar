@@ -3,15 +3,20 @@
         {% include 'app_main/_profile_image.html' with profile=post.author %}
         <button class="btn p-0 ml-auto post-modal" value="{{ post.id }}"><i class="fas fa-ellipsis-v"></i></button>
     </div>
-    <div class="card-body text-center"><img width='100%' src="{{ post.get_main_file.file.url }}" /></div>
-    <div class="card-footer bg-white">
-        <button class="btn"><i class="far fa-heart font-size-13"></i><small>10</small></button>
-        <button class="btn"><i class="far fa-comment font-size-13"></i><small>10</small></button>
 
-        <div class="post-content">{{post.content}}</div><span>더 보기</span>
+    <div class="card-body text-center"><img width='100%' src="{{ post.get_main_file.file.url }}" /></div>
+
+    <div class="card-footer bg-white">
+        <button class="btn"><i class="far fa-heart font-size-13"></i><small>{{ post.heart_set.all|length }}</small></button>
+        <button class="btn"><i class="far fa-comment font-size-13"></i><small>{{ post.comment_set.all|length }}</small></button>
+
+        <div class="content mb-4">
+            <div class="post-content">{{post.content}}</div>{% if post.content|length > 30 %}<div class="more cursor-pointer float-right">더 보기</div>{% endif %}
+        </div>
         <div class="my-3">
-            <div><b>kauewjygf</b> zzz</div>
-            <div><b>jwdbhe</b> zzz</div>
+            {% for comment in post.comment_set.all|slice:"0:2" %}
+                <div><b class="mr-2">{{ comment.author.name }}</b>{{ comment.content }}</div>
+            {% endfor %}
         </div>
 
         <form action="" method="post">{% csrf_token %}

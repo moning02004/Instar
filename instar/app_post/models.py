@@ -26,7 +26,7 @@ class Post(BaseModel):
         created = self.created
         current = datetime.now(timezone.utc)
         diff_hour = 24 * (current - created).days + int((current - created).seconds / 3600)
-        return f'{diff_hour}시간 전'
+        return f'{diff_hour}시간 전' if diff_hour < 24 else f'{diff_hour//24}일 전'
 
 
 class TagPost(models.Model):
@@ -41,23 +41,3 @@ class Heart(BaseModel):
 class File(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     file = models.FileField(upload_to=file_path)
-
-
-class Comment(BaseModel):
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    comment = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, related_name='comments')
-
-    content = models.TextField()
-
-    @property
-    def heart_count(self):
-        return self.commentheart_set.count()
-
-
-class CommentHeart(BaseModel):
-    comment = models.ForeignKey(Comment, on_delete=models.SET_NULL, null=True)
-
-
-class Report(BaseModel):
-    comment = models.ForeignKey(Comment, on_delete=models.SET_NULL, null=True)
-    content = models.TextField()
