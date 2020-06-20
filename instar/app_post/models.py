@@ -26,7 +26,7 @@ class Post(BaseModel):
         created = self.created
         current = datetime.now(timezone.utc)
         diff_hour = 24 * (current - created).days + int((current - created).seconds / 3600)
-        return f'{diff_hour}시간 전' if diff_hour < 24 else f'{diff_hour//24}일 전'
+        return f'{diff_hour}시간 전' if diff_hour < 24 else f'{diff_hour // 24}일 전'
 
 
 class TagPost(models.Model):
@@ -34,10 +34,10 @@ class TagPost(models.Model):
     tag = models.ForeignKey(Tag, on_delete=models.SET_NULL, null=True)
 
 
-class Heart(BaseModel):
-    post = models.ForeignKey(Post, on_delete=models.SET_NULL, null=True)
-
-
 class File(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     file = models.FileField(upload_to=file_path)
+
+
+class Heart(BaseModel):
+    post = models.ForeignKey(Post, on_delete=models.SET_NULL, null=True)

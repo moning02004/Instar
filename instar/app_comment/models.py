@@ -18,7 +18,3 @@ class Comment(BaseModel):
 class CommentHeart(BaseModel):
     comment = models.ForeignKey(Comment, on_delete=models.SET_NULL, null=True)
 
-
-class Report(BaseModel):
-    comment = models.ForeignKey(Comment, on_delete=models.SET_NULL, null=True)
-    content = models.TextField()

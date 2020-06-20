@@ -101,3 +101,4 @@ class PostTestCase(TestCase):
         self.post.refresh_from_db()
         self.assertEqual(len(self.post.heart_set.all()), 0)
         self.assertEqual(len(self.user.heart_set.all()), 0)
+
