@@ -51,9 +51,10 @@ body, html {
     top: 10vh;
 }
 
-.post-content {
+.text-overflow-ellipsis {
     white-space: nowrap;
     overflow: hidden;
+    text-overflow: ellipsis:
 }
 
 .pre-box {

@@ -4,6 +4,31 @@
 
 {% block content %}
 <div class="" style="width: 100%; height: 83vh; margin-top: 7vh;">
-신고 목록
+    <table class="table border-bottom">
+        <thead>
+            <tr class="text-center">
+                <th style="width: 10%;">유형</th>
+                <th>신고자</th>
+                <th style="width: 40%;">신고 내용</th>
+                <th style="width: 12%;">신고 날짜</th>
+                <th style="width: 15%;">신고 처리</th>
+                <th style="width: 10%;">바로가기</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for report in report_list %}
+                <tr class="text-center" id="">
+                    <td class="align-middle">{{ report.get_type }}</td>
+                    <td class="align-middle">{{ report.author.name }}</td>
+                    <td class="align-middle">{{ report.content }}</td>
+                    <td class="align-middle">{{ report.created|date:'Y/m/d' }}</td>
+                    <td class="align-middle">{{ report.result }}</td>
+                    <td class="align-middle"><a href="{{ report.get_url }}" target="_blank" class="p-0 m-0 btn"><i class="fas fa-share"></i></a></td>
+                </tr>
+            {% empty %}
+                <tr class="text-center"><td colspan="6">접수된 신고가 없습니다.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
 {% endblock %}

@@ -11,7 +11,7 @@
         <button class="btn"><i class="far fa-comment font-size-13"></i><small>{{ post.comment_set.all|length }}</small></button>
 
         <div class="content mb-4">
-            <div class="post-content">{{post.content}}</div>{% if post.content|length > 30 %}<div class="more cursor-pointer float-right">더 보기</div>{% endif %}
+            <div class="text-overflow-ellipsis">{{post.content}}</div>{% if post.content|length > 30 %}<div class="more cursor-pointer float-right">더 보기</div>{% endif %}
         </div>
         <div class="my-3">
             {% for comment in post.comment_set.all|slice:"0:2" %}

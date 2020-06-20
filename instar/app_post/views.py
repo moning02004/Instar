@@ -11,7 +11,8 @@ from app_post.models import Post, File, Heart
 from app_report.models import Report
 
 
-class PostList(ListView):
+class PostList(LoginRequiredMixin, ListView):
+    login_url = reverse_lazy('app_user:login')
     template_name = 'app_post/list.html'
     context_object_name = 'post_list'
 
@@ -37,6 +38,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 
 
 class PostDetail(LoginRequiredMixin, DetailView):
+    login_url = reverse_lazy('app_user:login')
     template_name = 'app_post/detail.html'
     queryset = Post.objects.all()
     context_object_name = 'post'
@@ -54,6 +56,7 @@ class PostUpdateView(IsOwnerMixin, UpdateView):
 
 
 class PostDeleteView(IsOwnerMixin, DeleteView):
+    login_url = reverse_lazy('app_user:login')
     model = Post
     http_method_names = ['post']
     success_url = reverse_lazy('app_main:main')

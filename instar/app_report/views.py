@@ -4,10 +4,11 @@ from django.http import JsonResponse
 from django.urls import reverse_lazy
 from django.views.generic import ListView, UpdateView
 
+from app_main.mixin import IsSuperUserMixin
 from app_report.models import Report
 
 
-class ReportListView(LoginRequiredMixin, ListView):
+class ReportListView(IsSuperUserMixin, ListView):
     login_url = reverse_lazy('app_user:login')
     template_name = 'app_report/list.html'
     context_object_name = 'report_list'
@@ -16,7 +17,7 @@ class ReportListView(LoginRequiredMixin, ListView):
         return Report.objects.filter(result='1').order_by('-created')
 
 
-class ReportResultView(LoginRequiredMixin, UpdateView):
+class ReportResultView(IsSuperUserMixin, UpdateView):
     login_url = reverse_lazy('app_user:login')
     http_method_names = ['post']
 
