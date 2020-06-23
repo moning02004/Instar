@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %} <title>{{user.name}} ({{user.email}})</title> {% endblock %}
+
+{% block content %}
+<div class="row w-100 mx-auto">
+    <div class="profile w-25">
+        <img
+                src="{% if profile.get_profile_image.image.url %}
+                    {{ profile.profile.get_profile_image.image.url }}
+                    {% else %}
+                    https://cdn.pixabay.com/photo/2016/09/01/08/24/smiley-1635449_960_720.png
+                    {% endif %}"
+                class="img"
+        />
+    </div>
+
+    <div class="w-75">
+        <div class="d-inline">{{ user.name }} ({{ user.email }})</div>
+
+        <button class="btn border ml-auto bg-primary text-white">팔로우</button>
+        <button class="btn profile-modal"><i class="fas fa-cog font-size-1_3rem"></i></button>
+
+        <div class="d-flex justify-content-between mt-3 w-50">
+            <div>게시물 0</div>
+            <div>팔로우 0</div>
+            <div>팔로워 0</div>
+        </div>
+        <div class="mt-3">
+            유정훈
+        </div>
+    </div>
+</div>
+
+<div class="py-3 text-center border-top mt-3">
+    <div class="ml-auto my-auto">게시물</div>
+</div>
+
+<div class="height-30vh">
+    {% include 'post/_post_list.html' with post_list=user.post_set.all %}
+</div>
+
+{% include 'modals/m_option.html' %}
+
+{% endblock %}

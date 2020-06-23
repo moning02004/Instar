@@ -1,0 +1,14 @@
+<div class="report-modal modal">
+    <div class="modal-content w-75">
+        <form id="report-form" action="{{ url }}" method="post">{% csrf_token %}
+            <div class="form-group">
+                <label>신고 내용</label>
+                <textarea class="form-control" name="content" rows="4"></textarea>
+            </div>
+            <div class="d-flex justify-content-end">
+                <button class="btn border mr-3" type="submit">작성하기</button>
+                <button class="btn border bg-danger text-white cancel" type="button">취소</button>
+            </div>
+        </form>
+    </div>
+</div>

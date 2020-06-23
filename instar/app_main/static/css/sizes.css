@@ -1,0 +1,17 @@
+.font-size-1_3rem {font-size: 1.3rem;}
+.font-size-2_5rem {font-size: 2.5rem;}
+.logo-font {font-family: 'Metal Mania', cursive;}
+
+.img-size-32px {width: 32px; height: 32px;}
+.img-size-64px {width: 64px; height: 64px;}
+.img-size-200px {width: 200px; height: 200px;}
+
+.height-80vh {height: 80vh;}
+.height-30vh {height: 30vh;}
+.height-10vh {height: 10vh;}
+
+.post-header img {
+    width: 32px;
+    height: 32px;
+    margin-right: 0.5rem;
+}

@@ -1,0 +1,7 @@
+<div class="row h-100">
+    {% for post in post_list %}
+        <a class="border p-1 col-3 mb-3 bg-white h-100" href="{% url 'app_post:detail' post.id %}">
+            {% include 'post/_post_image.html' %}
+        </a>
+    {% endfor %}
+</div>

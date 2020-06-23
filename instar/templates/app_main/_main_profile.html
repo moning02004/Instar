@@ -1,0 +1,14 @@
+<div class="row">
+    <a href="{% url 'app_user:profile' user.id %}" class="my-auto">
+        <img src="{% if profile.get_profile_image.image.url %}
+                    {{ profile.profile.get_profile_image.image.url }}
+                    {% else %}
+                    https://cdn.pixabay.com/photo/2016/09/01/08/24/smiley-1635449_960_720.png
+                    {% endif %}"
+             class="img mr-3 img-size-32px" />
+    </a>
+    <div class="ml-3 my-auto">
+        {{ user.username }}<br/>
+        {{ user.name }}
+    </div>
+</div>

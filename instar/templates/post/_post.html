@@ -1,0 +1,32 @@
+<div class="card mb-3">
+    <div class="card-header bg-white d-flex">
+        <div class="post-header">{% include 'post/_post_profile.html' with profile=post.author %}</div>
+        <button class="btn p-0 ml-auto btn-option" value="{{ post.id }}"><i class="fas fa-ellipsis-v"></i></button>
+    </div>
+
+    <div class="card-body border-bottom p-1 post-image" id="{{ post.id }}" style="height: 80vh;">
+        {% include 'post/_post_image.html' %}
+    </div>
+
+    {% include 'post/_post_heart.html' %}
+
+    <div class="card-body p-0 pt-2">
+
+        <div class="content px-3 mb-5">
+            <div class="text-overflow-ellipsis">{{ post.content }}</div>
+            {% if post.content|length > 30 %}
+            <span class="more cursor-pointer position-absolute" style="right: 1rem;">더 보기</span>
+            {% endif %}
+        </div>
+
+        <div class="my-3 px-3">
+            {% for comment in post.comment_set.all|slice:"0:2" %}
+                <div class="comment my-1">{% include 'post/_post_profile.html' with profile=user %} 올~ 멋있는데~</div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="card-footer p-1">
+        {% include 'post/_post_comment_form.html' %}
+    </div>
+</div>

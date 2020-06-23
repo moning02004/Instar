@@ -1,0 +1,18 @@
+.image-set{
+    overflow-x: scroll;
+}
+
+.image-set::-webkit-scrollbar {
+  width: 1px;
+}
+.image-set::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+.image-set::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: black;
+}
+.image-set::-webkit-scrollbar-button {
+  width: 0;
+  height: 0;
+}

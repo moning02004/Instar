@@ -1,0 +1,10 @@
+<form action="{% url 'app_user:login' %}" method="post"> {% csrf_token %}
+    {% for field in form %}
+        <div class="form-group">
+            {{ field | add_class:'form-control'}}
+        </div>
+    {% endfor %}
+    <button class="btn border w-100 bg-primary text-white" type="submit">로그인</button>
+    <hr />
+    비밀번호를 잊으셨나요?
+</form>

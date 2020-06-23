@@ -4,8 +4,8 @@
                 {% else %}
                 https://cdn.pixabay.com/photo/2016/09/01/08/24/smiley-1635449_960_720.png
                 {% endif %}"
-         class="img mr-3" style="width: 32px; height: 32px;" />
+         class="img" />
 </a>
-<a href="{% url 'app_user:profile' user.id %}" class="my-auto">
+<a href="{% url 'app_user:profile' user.id %}" class="my-auto mr-2">
     <b>{{ profile.name }}</b>
 </a>

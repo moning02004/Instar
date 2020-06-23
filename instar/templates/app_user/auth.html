@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="text-center mx-auto" style="width: 30%">
+    <div class="border rounded p-3 bg-white mx-auto w-100">
+        <a href="{% url 'app_main:main' %}" class="logo-font h1 d-block mb-3">instar</a>
+        {% if page == 'login' %}
+            {% include 'app_user/_login_box.html' %}
+        {% elif page == 'register' %}
+            {% include 'app_user/_register_box.html' %}
+        {% endif %}
+    </div>
+
+    <div class="border rounded p-3 bg-white mx-auto mt-4 w-100">
+        {% if page == 'login' %}
+            <div>계정이 없으신가요? <a href="{% url 'app_user:register' %}" class="text-primary">가입하기</a></div>
+        {% elif page == 'register' %}
+            <div>계정이 있으신가요? <a href="{% url 'app_user:login' %}" class="text-primary">로그인</a></div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

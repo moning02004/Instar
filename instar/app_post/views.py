@@ -1,7 +1,10 @@
+from datetime import datetime, timezone
+
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import redirect
+from django.template.defaulttags import register
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, DeleteView, UpdateView, CreateView
 
@@ -19,6 +22,9 @@ class PostList(LoginRequiredMixin, ListView):
     def get_queryset(self):
         if self.request.GET.get('type') == 'explore':
             query = Q()
+        elif self.request.GET.get('type') == 'heart':
+            hearts = [x.post.id for x in Heart.objects.select_related('author').select_related('post').filter(author=self.request.user)]
+            query = Q(id__in=hearts)
         else:
             query = Q(author__in=[x.id for x in self.request.user.follow.all()]) | Q(author=self.request.user)
         post_list = Post.objects.filter(query).order_by('-created')
@@ -84,3 +90,10 @@ class ReportCreateView(LoginRequiredMixin, CreateView):
                 return JsonResponse(status=200, data={'data': '정상적으로 신고되었습니다.'}, safe=False)
             return JsonResponse(status=200, data={'data': f'{request.user.name}님은 이미 신고하셨습니다.'}, safe=False)
         return JsonResponse(status=404, data={'data': 'only ajax'}, safe=False)
+
+
+@register.filter
+def different_day(created):
+    current = datetime.now(timezone.utc)
+    diff_hour = 24 * (current - created).days + int((current - created).seconds / 3600)
+    return f'{diff_hour}시간 전' if diff_hour < 24 else f'{diff_hour // 24}일 전'

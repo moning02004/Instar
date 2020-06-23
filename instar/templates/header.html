@@ -1,0 +1,28 @@
+<div class="header">
+    <div class="header-option">
+        <div class="position-absolute start">
+            <a href="{% url 'app_main:main' %}" class="logo-font font-size-2_5rem">instar</a>
+        </div>
+        <div class="position-absolute middle">
+            <form action="" method="get">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="keyword" placeholder="검색">
+                    <div class="input-group-appends">
+                        <button class="btn border" type="submit"><i class="fas fa-search"></i></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="position-absolute end">
+            <button class="btn btn-upload"><i class="fas fa-plus font-size-1_3rem"></i></button>
+            <a href="{% url 'app_post:list' %}?type=explore" class="btn"><i class="fas fa-compass font-size-1_3rem"></i></a>
+            <a href="{% url 'app_post:list' %}?type=heart" class="btn"><i class="fas fa-heart font-size-1_3rem"></i></a>
+            <a href="{% url 'app_user:profile' user.id %}" class="btn"><i class="fas fa-user font-size-1_3rem"></i></a>
+            {% if user.is_superuser %}
+            <a href="{% url 'app_report:list' %}" class="btn"><i class="fas fa-clipboard-list font-size-1_3rem"></i></a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% include 'modals/m_upload.html' %}

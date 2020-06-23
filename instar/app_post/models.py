@@ -18,15 +18,11 @@ class Post(BaseModel):
     tag = models.ManyToManyField(Tag, through='TagPost', through_fields=('post', 'tag'))
 
     @property
-    def get_main_file(self):
+    def main_file(self):
         return self.file_set.first()
 
-    @property
-    def different_day(self):
-        created = self.created
-        current = datetime.now(timezone.utc)
-        diff_hour = 24 * (current - created).days + int((current - created).seconds / 3600)
-        return f'{diff_hour}시간 전' if diff_hour < 24 else f'{diff_hour // 24}일 전'
+    def get_heart_author(self):
+        return [heart.author.id for heart in self.heart_set.all()]
 
 
 class TagPost(models.Model):

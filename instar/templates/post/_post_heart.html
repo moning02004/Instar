@@ -1,0 +1,8 @@
+<div>
+    <button class="btn post-heart" id="{{ post.id }}">
+        <i class="far fa-heart font-size-1_3rem {% if user.id in post.get_heart_author %}fas text-primary {% endif %}"></i>
+        <small>{{ post.heart_set.all|length}}</small>
+    </button>
+    <span class="btn"><i class="far fa-comment font-size-1_3rem"></i><small>{{ post.comment_set.all|length}}</small></span>
+    <small class="ml-3">{{ post.created|different_day }}</small>
+</div>

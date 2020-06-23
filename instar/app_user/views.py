@@ -8,18 +8,27 @@ from app_user.forms import UserRegisterForm, UserLoginForm, UserUpdateForm, User
 
 
 class UserLoginView(LoginView):
-    template_name = 'app_user/login.html'
+    template_name = 'app_user/auth.html'
     form_class = UserLoginForm
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        context['page'] = 'login'
+        return context
 
 
 class UserRegisterView(CreateView):
-    template_name = 'app_user/register.html'
+    template_name = 'app_user/auth.html'
     form_class = UserRegisterForm
     success_url = reverse_lazy('app_user:login')
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        context['page'] = 'register'
+        return context
 
 class UserProfileView(TemplateView):
-    template_name = 'app_user/m_profile.html'
+    template_name = 'app_user/profile.html'
 
 
 class UserPasswordView(IsOwnerMixin, UpdateView):

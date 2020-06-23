@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="height-30vh">
+    {% include 'post/_post_list.html' with post_list=post_list page='list' %}
+</div>
+
+{% endblock %}
