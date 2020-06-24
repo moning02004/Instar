@@ -20,13 +20,13 @@
         </div>
 
         <div class="my-3 px-3">
-            {% for comment in post.comment_set.all|slice:"0:2" %}
-                <div class="comment my-1">{% include 'post/_post_profile.html' with profile=user %} 올~ 멋있는데~</div>
+            {% for comment in post.comment_set.all|top_comment %}
+                <div class="comment my-1">{% include 'post/_post_profile.html' with profile=user %} {{ comment.content }}</div>
             {% endfor %}
         </div>
     </div>
 
     <div class="card-footer p-1">
-        {% include 'post/_post_comment_form.html' %}
+        {% include 'post/_post_comment_form.html' with post_id=post.id %}
     </div>
 </div>

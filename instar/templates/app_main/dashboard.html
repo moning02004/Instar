@@ -14,6 +14,7 @@
     <div class="post-field">
         {% for post in post_list %}
             {% include 'post/_post.html' with post=post %}
+            {% include 'modals/m_option.html' with post=post author=post.author.id %}
         {% endfor %}
     </div>
 </div>
@@ -23,10 +24,6 @@
     <hr /><p>추천 인물</p>
     {% include 'app_main/_main_recommend.html' %}
 </div>
-
-{% include 'modals/m_option.html'%}
-
-{% load static %}
 
 {% load static %}
 <script src="{% static 'js/image.js' %}"></script>

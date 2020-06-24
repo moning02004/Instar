@@ -32,3 +32,12 @@ class IsSuperUserMixin(TemplateResponseMixin, LoginRequiredMixin):
                 return self.handle_no_permission()
             self.template_name = self.failed_template_name
         return super().dispatch(request, *args, **kwargs)
+
+
+class IsLoginRequiredAndAjaxMixin(LoginRequiredMixin):
+    login_url = reverse_lazy('app_user:login')
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.is_ajax():
+            return self.handle_no_permission()
+        return super().dispatch(request, *args, **kwargs)

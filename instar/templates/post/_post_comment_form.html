@@ -1,8 +1,9 @@
-<form action="" method="post">{% csrf_token %}
+<form action="{% url 'app_post:app_comment:create' post_id %}" method="post">{% csrf_token %}
     <div class="input-group">
-        <input class="form-control" name="comment" placeholder="게시"/>
+        <input type="hidden" name="comment_id" />
+        <input class="form-control" name="content" placeholder="게시"/>
         <div class="input-group-prepend">
-            <button class="btn border">게시</button>
+            <button class="btn border" type="submit">게시</button>
         </div>
     </div>
 </form>

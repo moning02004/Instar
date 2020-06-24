@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %} <title>{{user.name}} ({{user.email}})</title> {% endblock %}
+{% block title %} <title>{{profile.name}} ({{profile.email}})</title> {% endblock %}
 
 {% block content %}
 <div class="row w-100 mx-auto">
@@ -16,13 +16,16 @@
     </div>
 
     <div class="w-75">
-        <div class="d-inline">{{ user.name }} ({{ user.email }})</div>
+        <div class="d-inline">{{ profile.name }} ({{ profile.email }})</div>
 
-        <button class="btn border ml-auto bg-primary text-white">팔로우</button>
-        <button class="btn profile-modal"><i class="fas fa-cog font-size-1_3rem"></i></button>
+        {% if user == profile %}
+            <a href="{% url 'app_user:e_info' %}" class="btn profile-modal"><i class="fas fa-cog font-size-1_3rem"></i></a>
+        {% else %}
+            <button class="btn border ml-auto bg-primary text-white">팔로우</button>
+        {% endif %}
 
         <div class="d-flex justify-content-between mt-3 w-50">
-            <div>게시물 0</div>
+            <div>게시물 {{ profile.post_set.all|length }}</div>
             <div>팔로우 0</div>
             <div>팔로워 0</div>
         </div>

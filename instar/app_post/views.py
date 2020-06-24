@@ -2,7 +2,7 @@ from datetime import datetime, timezone
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseRedirect
 from django.shortcuts import redirect
 from django.template.defaulttags import register
 from django.urls import reverse_lazy
@@ -23,7 +23,8 @@ class PostList(LoginRequiredMixin, ListView):
         if self.request.GET.get('type') == 'explore':
             query = Q()
         elif self.request.GET.get('type') == 'heart':
-            hearts = [x.post.id for x in Heart.objects.select_related('author').select_related('post').filter(author=self.request.user)]
+            hearts = [x.post.id for x in
+                      Heart.objects.select_related('author').select_related('post').filter(author=self.request.user)]
             query = Q(id__in=hearts)
         else:
             query = Q(author__in=[x.id for x in self.request.user.follow.all()]) | Q(author=self.request.user)
@@ -40,7 +41,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
         post = Post.objects.create(content=request.POST.get('content'), author=request.user)
         for file in request.FILES.getlist('images'):
             File.objects.create(post=post, file=file)
-        return redirect('app_main:main')
+        return HttpResponseRedirect(reverse_lazy('app_main:main'))
 
 
 class PostDetail(LoginRequiredMixin, DetailView):
@@ -48,6 +49,12 @@ class PostDetail(LoginRequiredMixin, DetailView):
     template_name = 'app_post/detail.html'
     queryset = Post.objects.all()
     context_object_name = 'post'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        instance = self.get_object()
+        context['comment_list'] = instance.comment_set.all().order_by('-created')
+        return context
 
 
 class PostUpdateView(IsOwnerMixin, UpdateView):
@@ -95,5 +102,15 @@ class ReportCreateView(LoginRequiredMixin, CreateView):
 @register.filter
 def different_day(created):
     current = datetime.now(timezone.utc)
-    diff_hour = 24 * (current - created).days + int((current - created).seconds / 3600)
-    return f'{diff_hour}시간 전' if diff_hour < 24 else f'{diff_hour // 24}일 전'
+    diff_min = int((current - created).seconds // 60)
+    diff_hour = 24 * (current - created).days + (diff_min // 60)
+    return '방금 전' if diff_min == 0 \
+        else f'{diff_min}분 전' if diff_hour == 0 \
+        else f'{diff_hour}시간 전' if diff_hour < 24 \
+        else f'{diff_hour // 24}일 전'
+
+
+@register.filter
+def top_comment(object_list):
+    comment_list = object_list.order_by('created').reverse()[:2]
+    return comment_list

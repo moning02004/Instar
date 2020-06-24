@@ -13,18 +13,14 @@ class CommentCreateView(LoginRequiredMixin, FormView):
     login_url = reverse_lazy('app_user:login')
     http_method_names = ['post']
 
-    def get_success_url(self):
-        post_pk = int(self.kwargs.get('post_pk'))
-        return reverse_lazy('app_post:detail', args=(post_pk,))
-
     def post(self, request, *args, **kwargs):
         Comment.objects.create(
-            post=Post.objects.get(pk=kwargs.get('post_pk')),
-            comment=Comment.objects.get(pk=request.POST.get('comment_id')) if request.POST.get('comment_id') else None,
+            post_id=kwargs.get('post_pk'),
+            comment_id=request.POST.get('comment_id') if request.POST.get('comment_id') else None,
             author=request.user,
             content=request.POST.get('content')
         )
-        return HttpResponseRedirect(self.success_url)
+        return HttpResponseRedirect(reverse_lazy('app_post:detail', args=(kwargs.get('post_pk'),)))
 
 
 class CommentDeleteView(IsOwnerMixin, DeleteView):

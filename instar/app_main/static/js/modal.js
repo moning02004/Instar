@@ -1,27 +1,29 @@
 $(document).ready(function() {
     let $bOption = $('.btn-option');
-    let $bUpload = $('.btn-upload');
-    let $bReport = $('.btn-report');
-    let $bReportContent = $('.btn-report-content');
-
-    let $mOption = $('.option-modal');
-    let $mUpload = $('.upload-modal');
-    let $mReport = $('.report-modal');
-    let $mReportContent = $('.report-content-modal');
-
-    $bOption.click({modal: $mOption}, modalOpen);
-    $bUpload.click({modal: $mUpload}, modalOpen);
-    $bReport.click({modal: $mReport}, modalOpen);
-    $bReportContent.click({modal: $mReportContent}, modalOpen);
-
-
-    $('.modal-content .cancel').click(function() {
-        $('.modal').css('display', 'none');
+    let $currentModal = null;
+    $bOption.click(function() {
+        id = $(this).val();
+        $currentModal = $('#'+id+'.modal-option')
+        $currentModal.css('display', 'block');
     });
 
+    $('.modal-content button').click(function() {
+        let $parent = $(this).parent()
+        let post = $parent.find('input[name="post_id"]').val()
+        let author = $parent.find('input[name="author_id"]').val()
+
+        if ($(this).val() == 'profile') {
+            location.href = '/user/' + author
+        } else if ($(this).val() == 'detail') {
+            location.href = '/post/' + post
+        } else if ($(this).val() == 'update') {
+            location.href = '/post/' + post + '/update'
+        } else if ($(this).val() == 'report') {
+
+        } else if ($(this).val() == 'delete') {
+
+        } else if ($(this).val() == 'cancel') {
+            $currentModal.css('display', 'none');
+        }
+    });
 })
-function modalOpen(e) {
-    $modal = e.data.modal;
-    $modal.css('display', 'block');
-    $modal.find('input[name="post_id"]').val($(this).val());
-}

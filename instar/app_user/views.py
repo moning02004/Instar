@@ -1,10 +1,13 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
+from django.http import JsonResponse
 from django.template.defaultfilters import register
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, TemplateView, FormView, UpdateView
+from django.views.generic import CreateView, TemplateView, UpdateView, DetailView, FormView
 
-from app_main.mixin import IsOwnerMixin
+from app_main.mixin import IsLoginRequiredAndAjaxMixin
 from app_user.forms import UserRegisterForm, UserLoginForm, UserUpdateForm, UserPasswordUpdateForm
+from app_user.models import User
 
 
 class UserLoginView(LoginView):
@@ -27,16 +30,42 @@ class UserRegisterView(CreateView):
         context['page'] = 'register'
         return context
 
-class UserProfileView(TemplateView):
+
+class UserProfileView(DetailView):
     template_name = 'app_user/profile.html'
+    queryset = User.objects.all()
+    context_object_name = 'profile'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        profile = context.get('profile')
+        context['follow'] = profile.follow.all()
+        context['follower'] = profile.follower.all()
+        return context
 
 
-class UserPasswordView(IsOwnerMixin, UpdateView):
+class UserFollowView(IsLoginRequiredAndAjaxMixin, UpdateView):
+    http_method_names = ['post']
+    queryset = User.objects.all()
+
+    def post(self, request, *args, **kwargs):
+        follow = request.user.follow.all().filter(id=kwargs.get('target_id'))
+        if follow.exists():
+            request.user.follow.remove(follow.first())
+        else:
+            request.user.follow.add(User.objects.get(pk=kwargs.get('target_id')))
+        request.user.save()
+        return JsonResponse(data={'data': not follow.exists()}, safe=False)
+
+
+class UserPasswordView(LoginRequiredMixin, FormView):
+    queryset = User.objects.all()
     template_name = 'app_user/password_edit.html'
     form_class = UserPasswordUpdateForm
 
 
-class UserEditView(IsOwnerMixin, UpdateView):
+class UserEditView(LoginRequiredMixin, FormView):
+    queryset = User.objects.all()
     template_name = 'app_user/profile_edit.html'
     form_class = UserUpdateForm
 

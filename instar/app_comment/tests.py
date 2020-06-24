@@ -22,7 +22,6 @@ class CommentTestCase(TestCase):
 
         # 추가
         response = self.client.post(reverse_lazy('app_post:app_comment:create', args=(self.post.id,)), data={
-            'post': self.post.id,
             'content': '이쁘네'
         })
         self.assertEqual(response.status_code, 302)
@@ -45,3 +44,7 @@ class CommentTestCase(TestCase):
         })
         self.assertEqual(response.status_code, 302)
         self.assertEqual(len(comment1.replies.all()), 1)
+
+        comment1.refresh_from_db()
+        coc = comment1.replies.all().first()
+        self.assertEqual(coc.content, '테스트 댓글 1의 댓글 1')

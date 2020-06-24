@@ -11,7 +11,7 @@
         <div class="card h-100">
             <div class="card-header bg-white d-flex">
                 <div class="post-header">{% include 'post/_post_profile.html' with profile=post.author %}</div>
-                <button class="btn p-0 ml-auto m-option" value="{{ post.id }}"><i class="fas fa-ellipsis-v"></i>
+                <button class="btn p-0 ml-auto btn-option" value="{{ post.id }}"><i class="fas fa-ellipsis-v"></i>
                 </button>
             </div>
             <div class="card-body border-bottom post-content h-50">
@@ -19,7 +19,7 @@
             </div>
 
             <div class="card-body border-bottom post-content h-75">
-                {% for comment in post.comment_set.all %}
+                {% for comment in comment_list %}
                     {% if comment.comment is None %}
                         <div class="mb-3">
                             <div class="comment my-auto">
@@ -41,19 +41,21 @@
             {% include 'post/_post_heart.html' %}
 
             <div class="card-footer p-1">
-                {% include 'post/_post_comment_form.html' %}
+                {% include 'post/_post_comment_form.html' with post_id=post.id %}
             </div>
         </div>
     </div>
 </div>
 
 <div class="mt-3 py-3 text-center">다른 게시물</div>
-<div style="height: 30vh;">
+<div class="height-30vh">
     {% include 'post/_post_list.html' with post_list=post.author.post_set.all %}
 </div>
 
-{% include 'modals/m_detail.html' with post=post %}
+{% include 'modals/m_option.html' with post=post author=post.author.id page='detail'%}
 
 {% load static %}
 <script src="{% static 'js/image.js' %}"></script>
+<script src="{% static 'js/ajax.js' %}"></script>
+
 {% endblock %}

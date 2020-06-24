@@ -1,4 +1,4 @@
-<div class="d-flex flex-wrap image-set h-100">
+<div class="d-flex flex-wrap image-set h-100 custom-scroll">
     {% for img in post.file_set.all %}
         <div class="text-center">
             <img class="img mw-100 mh-100" src="{{ img.file.url }}">
