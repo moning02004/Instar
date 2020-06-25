@@ -33,3 +33,6 @@ class UserTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         self.user1.refresh_from_db()
         self.assertEqual(len(self.user1.follow.all()), 1)
+
+        self.assertEqual(len(self.user2.follower.all()), 1)
+        self.assertEqual(len(self.user2.follow.all()), 0)
