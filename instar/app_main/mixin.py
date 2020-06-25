@@ -13,6 +13,9 @@ class IsOwnerMixin(TemplateResponseMixin, LoginRequiredMixin, SingleObjectMixin)
     def dispatch(self, request, *args, **kwargs):
         instance = self.get_object()
         self.template_name = self.success_template_name or self.template_name
+        if instance == request.user:
+            return super().dispatch(request, *args, **kwargs)
+
         if instance.author != request.user:
             if self.failed_template_name is None:
                 return self.handle_no_permission()

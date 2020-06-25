@@ -20,14 +20,14 @@
 </div>
 
 <div class="profile-box">
-    {% include 'app_main/_main_profile.html' %}
+    {% include 'app_main/_main_profile.html' with profile=user%}
     <hr /><p>추천 인물</p>
-    {% include 'app_main/_main_recommend.html' %}
+    {% include 'app_main/_main_recommend.html' with profile=user %}
 </div>
 
 {% load static %}
 <script src="{% static 'js/image.js' %}"></script>
 <script src="{% static 'js/dashboard.js' %}"></script>
-<script src="{% static 'js/ajax.js' %}"></script>
+<script src="{% static 'js/post_ajax.js' %}"></script>
 
 {% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %} <title>프로필 변경</title> {% endblock %}
+
+{% block content %}
+<div class="position-relative mx-auto" style="min-height: 100vh;">
+
+    <div class="position-absolute border w-25 p-3 bg-white h-100">
+        <div class="menu">
+            <a href="{% url 'app_user:u_profile' user.id %}" class="btn w-100 border-bottom">프로필 수정</a>
+            <a href="{% url 'app_user:u_password' user.id %}" class="btn w-100 border-bottom">비밀번호 수정</a>
+        </div>
+    </div>
+    <div class="position-absolute border w-75 p-3 bg-white h-100" style="left: 25%;">
+        {% include 'app_user/_update_form.html' %}
+    </div>
+</div>
+
+{% load static %}
+<script src="{% static 'js/user_ajax.js' %}"></script>
+{% endblock %}
+

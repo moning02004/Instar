@@ -1,0 +1,30 @@
+<form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+    {% for field in form %}
+        <div class="form-group">
+            <div class="row">
+                <div class="text-right my-auto mr-3" style="width: 23%;">{{ field.label }}</div>
+                <div style="width:70%;">
+                    {% if field.label == '프로필 사진' %}
+                        <div class="d-flex flex-wrap">
+                            <img src="{{user.get_profile_image.image.url}}" class="img-thumbnail" width="30%" alt="">
+                            <div class="w-25 prev-profile-image ml-3">
+                                <img src="{{user.get_profile_image.image.url}}" class="img-thumbnail" alt="">
+                            </div>
+                        </div>
+                        <label for="selected-image" class="btn border mt-1 mr-1">프로필 사진 변경</label>
+                        <input type="file" hidden accept="image/*" name="image" id="selected-image"/>
+                    {% else %}
+                        {{ field|add_class:'form-control' }}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    <div class="d-flex">
+        <div class="mr-3" style="width: 23%;"></div>
+        <button type="submit" class="btn border">제출</button>
+        <a href="{% url 'app_user:logout' %}" class="btn border bg-light ml-auto">로그아웃</a>
+        <button class="btn ml-auto bg-danger text-light" type="button" id="btn-leave">탈퇴</button>
+        <div class="ml-auto"></div>
+    </div>
+</form>

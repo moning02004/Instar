@@ -4,15 +4,15 @@ from django.db import models
 
 
 def user_image_path(instance, filename):
-    return f'{instance.user.username}/images/{filename}'
+    return f'{instance.user.id}_{instance.user.username}/images/{filename}'
 
 
 class User(AbstractUser):
     username = models.EmailField(unique=True, null=False, blank=False)
-    name = models.CharField(max_length=100)
-    phone = models.CharField(max_length=20)
-    follow = models.ManyToManyField(to='self', symmetrical=False, related_name='follower')
-    explain = models.TextField()
+    name = models.CharField(max_length=100, blank=True)
+    phone = models.CharField(max_length=20, blank=True)
+    follow = models.ManyToManyField(to='self', symmetrical=False, related_name='follower', blank=True)
+    explain = models.TextField(blank=True)
     sex = models.CharField(max_length=1)
 
     @property
@@ -34,7 +34,7 @@ class User(AbstractUser):
 
 class UserImage(models.Model):
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
-    image = models.ImageField(upload_to=user_image_path)
+    image = models.ImageField(upload_to=user_image_path, blank=True)
     created = models.DateTimeField(auto_now_add=True)
 
     def delete(self, using=None, keep_parents=False):

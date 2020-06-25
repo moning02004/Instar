@@ -14,9 +14,11 @@ $(document).ready(function() {
                    (response.data) ? number+1: number-1
                 );
             },
-            error: function(error) {
-
-            }
+            error: function(error) {},
+            complete: function(e) {
+                $('.loading-img').css('display', 'none')
+            },
+            timeout: 2000
         });
     })
 });

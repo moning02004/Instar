@@ -1,4 +1,4 @@
-<div class="upload-modal modal">
+<div class="modal-upload modal">
     <div class="modal-content w-75">
         <form id="post-form" action="{% url 'app_post:create' %}" method="post" enctype="multipart/form-data">{% csrf_token %}
             <div class="form-group">
@@ -11,7 +11,7 @@
             </div>
             <div class="d-flex justify-content-end">
                 <button class="btn border mr-3" type="submit">작성하기</button>
-                <button class="btn border bg-danger text-white cancel" type="button">취소</button>
+                <button class="btn border bg-danger text-white" type="button" value="cancel">취소</button>
             </div>
         </form>
     </div>

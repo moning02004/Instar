@@ -10,4 +10,6 @@ $(document).ready(function() {
         }
     }
 
+    let $prev_image = $('.prev-profile-image');
+
 });

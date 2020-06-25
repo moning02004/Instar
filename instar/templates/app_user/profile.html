@@ -7,7 +7,7 @@
     <div class="profile w-25">
         <img
                 src="{% if profile.get_profile_image.image.url %}
-                    {{ profile.profile.get_profile_image.image.url }}
+                    {{ profile.get_profile_image.image.url }}
                     {% else %}
                     https://cdn.pixabay.com/photo/2016/09/01/08/24/smiley-1635449_960_720.png
                     {% endif %}"
@@ -19,19 +19,19 @@
         <div class="d-inline">{{ profile.name }} ({{ profile.email }})</div>
 
         {% if user == profile %}
-            <a href="{% url 'app_user:e_info' %}" class="btn profile-modal"><i class="fas fa-cog font-size-1_3rem"></i></a>
+            <a href="{% url 'app_user:u_profile' user.id %}" class="btn profile-modal"><i class="fas fa-cog font-size-1_3rem"></i></a>
         {% else %}
-            <button class="btn border ml-auto bg-primary text-white">팔로우</button>
+            <button class="btn border ml-auto bg-primary text-white btn-follow" id="{{ user.id }}" value="{{ profile.id }}">
+                {% if profile not in user.follow.all %}팔로우{% else %}팔로우 취소{% endif %}
+            </button>
         {% endif %}
 
         <div class="d-flex justify-content-between mt-3 w-50">
             <div>게시물 {{ profile.post_set.all|length }}</div>
-            <div>팔로우 0</div>
-            <div>팔로워 0</div>
+            <div>팔로워 <span id="follower">{{ follower|length }}</span></div>
+            <div>팔로잉 <span id="follow">{{ follow|length}}</span></div>
         </div>
-        <div class="mt-3">
-            유정훈
-        </div>
+        <div class="mt-3">{{ profile.explain}}</div>
     </div>
 </div>
 
@@ -39,10 +39,13 @@
     <div class="ml-auto my-auto">게시물</div>
 </div>
 
-<div class="height-30vh">
-    {% include 'post/_post_list.html' with post_list=user.post_set.all %}
+<div class="min-height-30vh">
+    {% include 'post/_post_list.html' with post_list=profile.post_set.all %}
 </div>
 
 {% include 'modals/m_option.html' %}
+
+{% load static %}
+<script src="{% static 'js/user_ajax.js' %}"></script>
 
 {% endblock %}

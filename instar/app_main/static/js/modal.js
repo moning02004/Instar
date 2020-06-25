@@ -26,4 +26,11 @@ $(document).ready(function() {
             $currentModal.css('display', 'none');
         }
     });
+
+    let $bUpload = $('.btn-upload');
+    $bUpload.click(function() {
+        $currentModal = $('.modal-upload');
+        $currentModal.css('display', 'block');
+    });
+
 })

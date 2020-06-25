@@ -17,6 +17,9 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/image_set.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/sizes.css' %}">
 
+    <!--// 출처 http://codepen.io/Zeneraith/pen/bdEmA-->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/clock.css' %}">
+
     <script src="{% static 'js/csrf_token.js' %}"></script>
     <script src="{% static 'js/modal.js' %}"></script>
 </head>
@@ -28,7 +31,7 @@
     </div>
 
     <div class="bg-light" style="min-height: 90vh;">
-        <div class="container h-100">
+        <div class="container">
             {% block content %}{% endblock %}
         </div>
     </div>
@@ -42,6 +45,10 @@
             <a href="https://github.com/moning02004/instar" target="_blank"><i class="fab fa-github font-size-1_3rem"></i></a>
         </div>
     </footer>
+
+    <div class="position-fixed loading-img">
+        <div class="clock"></div>
+    </div>
 
 </body>
 </html>

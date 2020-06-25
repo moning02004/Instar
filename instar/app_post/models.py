@@ -1,12 +1,13 @@
 from datetime import datetime, timezone
 
+from django.contrib.auth import get_user_model
 from django.db import models
 
 from app_main.models import BaseModel
 
 
 def file_path(instance, filename):
-    return f'{instance.post.author.username}/{instance.post.id}/{filename}'
+    return f'{instance.post.author.id}_{instance.post.author.username}/{instance.post.id}/{filename}'
 
 
 class Tag(models.Model):
@@ -15,6 +16,7 @@ class Tag(models.Model):
 
 class Post(BaseModel):
     content = models.TextField()
+    author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     tag = models.ManyToManyField(Tag, through='TagPost', through_fields=('post', 'tag'))
 
     @property

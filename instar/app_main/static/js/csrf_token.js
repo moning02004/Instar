@@ -24,6 +24,7 @@ $(document).ready(function() {
             if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
                 xhr.setRequestHeader("X-CSRFToken", csrftoken);
             }
+            $('.loading-img').css('display', 'block')
         }
     });
 });
