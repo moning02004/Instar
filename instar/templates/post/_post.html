@@ -1,10 +1,10 @@
 <div class="card mb-3">
     <div class="card-header bg-white d-flex">
-        <div class="post-header">{% include 'post/_post_profile.html' with profile=post.author %}</div>
+        <div class="post-header-32px">{% include 'post/_post_profile.html' with profile=post.author %}</div>
         <button class="btn p-0 ml-auto btn-option" value="{{ post.id }}"><i class="fas fa-ellipsis-v"></i></button>
     </div>
 
-    <div class="card-body border-bottom p-1 post-image" id="{{ post.id }}" style="height: 80vh;">
+    <div class="card-body border-bottom p-1 post-image height-80vh" id="{{ post.id }}">
         {% include 'post/_post_image.html' %}
     </div>
 
@@ -19,11 +19,18 @@
             {% endif %}
         </div>
 
-        <div class="my-3 px-3">
-            {% for comment in post.comment_set.all|top_comment %}
-                <div class="comment my-1">{% include 'post/_post_profile.html' with profile=user %} {{ comment.content }}</div>
-            {% endfor %}
-        </div>
+        {% for comment in post.comment_set.all|top_comment %}
+            <div class="mb-3 px-3">
+                <div class="comment-32px my-1 d-inline">{% include 'post/_post_profile.html' with profile=user %}</div>
+                <div class="d-inline">{{ comment.content }}</div>
+                <div class="d-inline float-right">
+                    <button class="btn comment-heart" id="{{post.id}}-{{ comment.id }}">
+                        <i class="far fa-heart font-size-1_3rem {% if user.id in post.get_heart_author %}fas text-primary {% endif %}"></i>
+                        <small>{{ comment.commentheart_set.all|length}}</small>
+                    </button>
+                </div>
+            </div>
+        {% endfor %}
     </div>
 
     <div class="card-footer p-1">

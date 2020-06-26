@@ -11,5 +11,5 @@ urlpatterns = [
     path('<int:pk>/update', views.PostUpdateView.as_view(), name='update'),
     path('<int:pk>/heart', views.PostHeartView.as_view(), name='heart'),
     path('<int:pk>/report', views.ReportCreateView.as_view(), name='report'),
-    path('<int:post_pk>/comment', include('app_comment.urls')),
+    path('<int:post_pk>/comment/', include('app_comment.urls')),
 ]

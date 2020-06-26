@@ -38,7 +38,8 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     http_method_names = ['post']
 
     def post(self, request, *args, **kwargs):
-        post = Post.objects.create(content=request.POST.get('content'), author=request.user)
+        content = request.POST.get('content')
+        post = Post.objects.create(content=content, author=request.user)
         for file in request.FILES.getlist('images'):
             File.objects.create(post=post, file=file)
         return HttpResponseRedirect(reverse_lazy('app_main:main'))
@@ -53,7 +54,7 @@ class PostDetail(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
         instance = self.get_object()
-        context['comment_list'] = instance.comment_set.all().order_by('-created')
+        context['comment_list'] = instance.comment_set.all().filter(comment=None).order_by('-created')
         return context
 
 
@@ -112,5 +113,5 @@ def different_day(created):
 
 @register.filter
 def top_comment(object_list):
-    comment_list = object_list.order_by('created').reverse()[:2]
+    comment_list = object_list.filter(comment=None).order_by('created').reverse()[:2]
     return comment_list

@@ -17,6 +17,7 @@ class CommentCreateView(LoginRequiredMixin, FormView):
         Comment.objects.create(
             post_id=kwargs.get('post_pk'),
             comment_id=request.POST.get('comment_id') if request.POST.get('comment_id') else None,
+            origin_id=request.POST.get('origin_id') if request.POST.get('origin_id') else None,
             author=request.user,
             content=request.POST.get('content')
         )

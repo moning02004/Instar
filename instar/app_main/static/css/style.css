@@ -59,26 +59,18 @@ body, html {
     word-wrap: break-all;
  }
 
- .post-content {
+ .overflow-scroll {
     overflow-y: scroll;
     -ms-overflow=style:none;
  }
- .post-content::-webkit-scrollbar {
+ .overflow-scroll::-webkit-scrollbar {
     display: none;
  }
 .bg-select {
     background-color: rgb(228,228,228);
 }
 
-.cursor-pointer {
-    cursor: pointer;
-}
-
-.comment img {
-    width: 32px;
-    height: 32px;
-    margin-right: 0.5rem;
-}
+.cursor-pointer {cursor: pointer;}
 
 .profile img {
     width: 200px;
@@ -87,4 +79,9 @@ body, html {
 
 textarea {
     border: 1px solid rgb(220, 220, 220);
+}
+
+.divider {
+    padding: 1px;
+    background-color: rgb(100, 100, 100);
 }

@@ -1,0 +1,36 @@
+<div class="mb-3 border rounded p-3 bg-white">
+    <div class="my-auto comment-32px">{% include 'post/_post_profile.html' with profile=comment.author %}</div>
+    <div class="pre-box mt-3">{{ comment.content }}</div>
+    <div class="d-flex">
+        <button class="btn comment-heart" id="{{comment.post.id}}-{{ comment.id }}">
+            <i class="far fa-heart {% if user.id in comment.get_heart_author %}fas text-primary {% endif %}"></i>
+            <small>{{ comment.commentheart_set.all|length}}</small>
+        </button>
+        <small class="my-auto ml-auto">{{ comment.created|different_day }}</small>
+        <button class="btn my-auto ml-auto font-size-0_75rem" id="{{ comment.id }}">신고</button>
+        <button class="btn my-auto reply font-size-0_75rem" id="{{ comment.id }}-{{ comment.id }}" value="{{ comment.author.name }}">답글</button>
+    </div>
+
+    <div>-----
+        <button class="btn font-size-0_75rem">펼치기 {{ comment.sub_comment.all|length }}</button>
+    </div>
+
+    <div class="sub-comment">
+        {% for sub_comment in comment.sub_comment.all %}
+            <div class="ml-3 mb-4">
+                <div class="my-auto comment-24px d-inline">{% include 'post/_post_profile.html' with profile=sub_comment.author %}</div>
+                <div class="pre-box mt-2 pl-3">@<b>{{sub_comment.author.name}}</b> {{ sub_comment.content }}</div>
+
+                <div class="d-flex">
+                    <button class="btn comment-heart" id="{{sub_comment.post.id}}-{{ sub_comment.id }}">
+                        <i class="far fa-heart {% if user.id in sub_comment.get_heart_author %}fas text-primary {% endif %}"></i>
+                        <small>{{ sub_comment.commentheart_set.all|length}}</small>
+                    </button>
+                    <small class="my-auto ml-auto font-size-0_75rem">{{ sub_comment.created|different_day }}</small>
+                    <button class="btn my-auto ml-auto font-size-0_75rem" id="{{ sub_comment.id }}">신고</button>
+                    <button class="btn my-auto reply font-size-0_75rem" id="{{ sub_comment.id }}-{{ comment.id }}" value="{{ sub_comment.author.name }}">답글달기</button>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>

@@ -9,32 +9,19 @@
 
     <div class="position-absolute bg-white border-left h-100" style="left:70%; width: 30%;">
         <div class="card h-100">
-            <div class="card-header bg-white d-flex">
-                <div class="post-header">{% include 'post/_post_profile.html' with profile=post.author %}</div>
-                <button class="btn p-0 ml-auto btn-option" value="{{ post.id }}"><i class="fas fa-ellipsis-v"></i>
+            <div class="card-header">
+                <div class="post-header-32px d-inline">{% include 'post/_post_profile.html' with profile=post.author %}</div>
+                <button class="btn my-auto btn-option float-right" value="{{ post.id }}">
+                    <i class="fas fa-ellipsis-v"></i>
                 </button>
             </div>
-            <div class="card-body border-bottom post-content h-50">
+            <div class="card-body overflow-scroll border-bottom content height-30vh">
                 <div class="ml-3 pre-box">{{ post.content }}</div>
             </div>
 
-            <div class="card-body border-bottom post-content h-75">
+            <div class="card-body bg-light border-bottom overflow-scroll comment height-30vh">
                 {% for comment in comment_list %}
-                    {% if comment.comment is None %}
-                        <div class="mb-3">
-                            <div class="comment my-auto">
-                                {% include 'post/_post_profile.html' with profile=comment.author %}
-                            </div>
-                            <div class="row ml-5">
-                                <div class="my-auto pre-box">{{ comment.content }}</div>
-                                <button class="btn ml-auto py-0" value="{{post.id}}"><i class="far fa-heart"></i></button>
-                            </div>
-                            <div class="d-flex justify-content-end">
-                                <small class="my-auto">{{ comment.created|different_day }}</small>
-                                <button class="btn my-auto">답글달기</button>
-                            </div>
-                        </div>
-                    {% endif %}
+                    {% include 'post/_comment_list.html' with comment=comment%}
                 {% endfor %}
             </div>
 
@@ -56,6 +43,6 @@
 
 {% load static %}
 <script src="{% static 'js/image.js' %}"></script>
-<script src="{% static 'js/post_ajax.js' %}"></script>
+<script src="{% static 'js/post.js' %}"></script>
 
 {% endblock %}

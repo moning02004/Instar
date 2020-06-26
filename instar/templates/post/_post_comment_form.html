@@ -1,8 +1,10 @@
 <form action="{% url 'app_post:app_comment:create' post_id %}" method="post">{% csrf_token %}
-    <div class="input-group">
+    <div class="input-group comment-field">
         <input type="hidden" name="comment_id" />
-        <input class="form-control" name="content" placeholder="게시"/>
-        <div class="input-group-prepend">
+        <input type="hidden" name="origin_id" />
+        <div class="input-group-text rounded-0 bg-white border-right-0 px-1"><span class="answer"></span></div>
+        <input class="form-control border-left-0" name="content" placeholder="답글"/>
+        <div class="input-group-append">
             <button class="btn border" type="submit">게시</button>
         </div>
     </div>

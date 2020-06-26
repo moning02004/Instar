@@ -2,6 +2,7 @@
 .font-size-2_5rem {font-size: 2.5rem;}
 .logo-font {font-family: 'Metal Mania', cursive;}
 
+.img-size-16px {width: 16px; height: 16px;}
 .img-size-32px {width: 32px; height: 32px;}
 .img-size-64px {width: 64px; height: 64px;}
 .img-size-200px {width: 200px; height: 200px;}
@@ -11,8 +12,9 @@
 .min-height-30vh {min-height: 30vh;}
 .height-10vh {height: 10vh;}
 
-.post-header img {
-    width: 32px;
-    height: 32px;
-    margin-right: 0.5rem;
-}
+.post-header-32px img {width: 32px; height: 32px; margin-right: 0.5rem;}
+
+.comment-32px img {width: 32px; height: 32px; margin-right: 0.5rem;}
+.comment-24px img {width: 24px; height: 24px; margin-right: 0.5rem;}
+
+.font-size-0_75rem {font-size: 0.75rem;}
