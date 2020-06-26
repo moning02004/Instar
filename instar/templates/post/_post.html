@@ -25,7 +25,7 @@
                 <div class="d-inline">{{ comment.content }}</div>
                 <div class="d-inline float-right">
                     <button class="btn comment-heart" id="{{post.id}}-{{ comment.id }}">
-                        <i class="far fa-heart font-size-1_3rem {% if user.id in post.get_heart_author %}fas text-primary {% endif %}"></i>
+                        <i class="far fa-heart font-size-1_3rem {% if user.id in comment.get_heart_author %}fas text-primary {% endif %}"></i>
                         <small>{{ comment.commentheart_set.all|length}}</small>
                     </button>
                 </div>

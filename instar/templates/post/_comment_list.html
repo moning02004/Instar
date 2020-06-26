@@ -7,7 +7,7 @@
             <small>{{ comment.commentheart_set.all|length}}</small>
         </button>
         <small class="my-auto ml-auto">{{ comment.created|different_day }}</small>
-        <button class="btn my-auto ml-auto font-size-0_75rem" id="{{ comment.id }}">신고</button>
+        <button class="btn my-auto ml-auto font-size-0_75rem report" id="{{ comment.id }}">신고</button>
         <button class="btn my-auto reply font-size-0_75rem" id="{{ comment.id }}-{{ comment.id }}" value="{{ comment.author.name }}">답글</button>
     </div>
 
@@ -27,7 +27,7 @@
                         <small>{{ sub_comment.commentheart_set.all|length}}</small>
                     </button>
                     <small class="my-auto ml-auto font-size-0_75rem">{{ sub_comment.created|different_day }}</small>
-                    <button class="btn my-auto ml-auto font-size-0_75rem" id="{{ sub_comment.id }}">신고</button>
+                    <button class="btn my-auto ml-auto font-size-0_75rem report" id="{{ sub_comment.id }}">신고</button>
                     <button class="btn my-auto reply font-size-0_75rem" id="{{ sub_comment.id }}-{{ comment.id }}" value="{{ sub_comment.author.name }}">답글달기</button>
                 </div>
             </div>

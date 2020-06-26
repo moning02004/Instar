@@ -22,6 +22,8 @@
             <div class="card-body bg-light border-bottom overflow-scroll comment height-30vh">
                 {% for comment in comment_list %}
                     {% include 'post/_comment_list.html' with comment=comment%}
+                {% empty %}
+                    <div class="font-size-0_75rem text-center">댓글이 아직 달리지 않았네요</div>
                 {% endfor %}
             </div>
 
