@@ -18,8 +18,6 @@ $(document).ready(function() {
             location.href = '/post/' + post
         } else if ($(this).val() == 'update') {
             location.href = '/post/' + post + '/update'
-        } else if ($(this).val() == 'report') {
-
         } else if ($(this).val() == 'delete') {
 
         } else if ($(this).val() == 'cancel') {

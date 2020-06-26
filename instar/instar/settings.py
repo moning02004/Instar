@@ -48,7 +48,6 @@ INSTALLED_APPS = [
     'app_main',
     'app_post',
     'app_comment',
-    'app_report',
     'app_user',
 ]
 

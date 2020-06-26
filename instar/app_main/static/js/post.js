@@ -21,13 +21,15 @@ $(document).ready(function() {
         $('.comment').removeClass('height-80vh')
         $(this).removeClass('height-30vh');
         $(this).addClass('height-80vh');
-
-        console.log($(this).height())
     })
     $('.comment').click(function() {
         $('.content').removeClass('height-80vh')
         $(this).removeClass('height-30vh');
         $(this).addClass('height-80vh');
-        console.log($(this).height())
     })
+    $('.show-sub-comment').click(function() {
+
+        let $sub = $(this).parent().find('.sub-comment')
+        $sub.css('display', ($sub.is(':visible'))? 'none' : 'block')
+    });
 });

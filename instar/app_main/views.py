@@ -9,6 +9,7 @@ from app_user.views import UserLoginView
 class DashBoardView(LoginRequiredMixin, ListView):
     template_name = 'app_main/dashboard.html'
     context_object_name = 'post_list'
+    paginate_by = 10
 
     def get_queryset(self):
         query = Q(author__in=[x.id for x in self.request.user.follow.all()]) | Q(author=self.request.user)

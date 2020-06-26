@@ -10,10 +10,7 @@
     <div class="position-absolute bg-white border-left h-100" style="left:70%; width: 30%;">
         <div class="card h-100">
             <div class="card-header">
-                <div class="post-header-32px d-inline">{% include 'post/_post_profile.html' with profile=post.author %}</div>
-                <button class="btn my-auto btn-option float-right" value="{{ post.id }}">
-                    <i class="fas fa-ellipsis-v"></i>
-                </button>
+                <div class="post-header-32px my-auto">{% include 'post/_post_profile.html' with profile=post.author %}</div>
             </div>
             <div class="card-body overflow-scroll border-bottom content height-30vh">
                 <div class="ml-3 pre-box">{{ post.content }}</div>

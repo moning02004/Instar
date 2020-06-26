@@ -11,7 +11,6 @@ from django.views.generic import ListView, DetailView, DeleteView, UpdateView, C
 from app_main.mixin import IsOwnerMixin
 from app_post.forms import PostUpdateForm
 from app_post.models import Post, File, Heart
-from app_report.models import Report
 
 
 class PostList(LoginRequiredMixin, ListView):
@@ -83,21 +82,6 @@ class PostHeartView(LoginRequiredMixin, CreateView):
             heart.delete() if not is_created else None
             return JsonResponse(data={'data': is_created}, safe=False, status=200)
         return JsonResponse(status=404, data={'data': 'Only Ajax'})
-
-
-class ReportCreateView(LoginRequiredMixin, CreateView):
-    login_url = reverse_lazy('app_user:login')
-    http_method_names = ['post']
-
-    def post(self, request, *args, **kwargs):
-        if request.is_ajax():
-            report, is_created = Report.objects.get_or_create(post_id=kwargs.get('pk'), author=request.user)
-            if is_created:
-                report.content = request.POST.get('content')
-                report.save()
-                return JsonResponse(status=200, data={'data': '정상적으로 신고되었습니다.'}, safe=False)
-            return JsonResponse(status=200, data={'data': f'{request.user.name}님은 이미 신고하셨습니다.'}, safe=False)
-        return JsonResponse(status=404, data={'data': 'only ajax'}, safe=False)
 
 
 @register.filter
