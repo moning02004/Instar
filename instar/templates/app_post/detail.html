@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
-{% load static %}
+
+{% block title %} <title>게시물</title> {% endblock %}
 
 {% block content %}
 <div class="position-relative" style="height: 90vh;">
@@ -9,8 +10,13 @@
 
     <div class="position-absolute bg-white border-left h-100" style="left:70%; width: 30%;">
         <div class="card h-100">
-            <div class="card-header">
+            <div class="card-header d-flex">
                 <div class="post-header-32px my-auto">{% include 'post/_post_profile.html' with profile=post.author %}</div>
+                {% if user == post.author %}
+                <button class="btn my-auto btn-option ml-auto" value="{{ post.id }}">
+                    <i class="fas fa-ellipsis-v"></i>
+                </button>
+                {% endif %}
             </div>
             <div class="card-body overflow-scroll border-bottom content height-30vh">
                 <div class="ml-3 pre-box">{{ post.content }}</div>

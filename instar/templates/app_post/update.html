@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% block title %} <title>게시물 수정</title> {% endblock %}
+
 {% block content %}
 <div class="position-relative" style="height: 90vh;">
     <div class="position-absolute bg-white h-100" style="left:0; width: 70%;">
@@ -9,9 +11,7 @@
     <div class="position-absolute bg-white border-left h-100" style="left:70%; width: 30%;">
         <div class="card h-100">
             <div class="card-header bg-white d-flex">
-                <div class="post-header">{% include 'post/_post_profile.html' with profile=post.author %}</div>
-                <button class="btn p-0 ml-auto btn-option" value="{{ post.id }}"><i class="fas fa-ellipsis-v"></i>
-                </button>
+                <div class="post-header-32px my-auto">{% include 'post/_post_profile.html' with profile=post.author %}</div>
             </div>
 
             <form action="" method="post">{% csrf_token %}
