@@ -1,16 +1,15 @@
 from datetime import datetime, timezone
 
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db.models import Q
+from django.db.models import Q, F
 from django.http import JsonResponse, HttpResponseRedirect
-from django.shortcuts import redirect
 from django.template.defaulttags import register
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, DeleteView, UpdateView, CreateView
 
 from app_main.mixin import IsOwnerMixin
 from app_post.forms import PostUpdateForm
-from app_post.models import Post, File, Heart
+from app_post.models import Post, File, Heart, Tag
 
 
 class PostList(LoginRequiredMixin, ListView):
@@ -25,9 +24,13 @@ class PostList(LoginRequiredMixin, ListView):
             hearts = [x.post.id for x in
                       Heart.objects.select_related('author').select_related('post').filter(author=self.request.user)]
             query = Q(id__in=hearts)
+        elif self.request.GET.get('search') is not None:
+            keyword = self.request.GET.get('search')
+
+            query = Q(tag__in=Tag.objects.filter(keyword__icontains=keyword))
         else:
             query = Q(author__in=[x.id for x in self.request.user.follow.all()]) | Q(author=self.request.user)
-        post_list = Post.objects.filter(query).order_by('-created')
+        post_list = Post.objects.prefetch_related('tag').filter(query).order_by('-created')
         return post_list
 
 
@@ -38,7 +41,13 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 
     def post(self, request, *args, **kwargs):
         content = request.POST.get('content')
-        post = Post.objects.create(content=content, author=request.user)
+        tag_list = list(filter(is_tag, content.split(' ')))
+
+        post = Post.objects.create(author=request.user, content=content)
+        for tag in tag_list:
+            tag_instance = Tag.objects.create(keyword=tag[1:])
+            post.tag.add(tag_instance)
+
         for file in request.FILES.getlist('images'):
             File.objects.create(post=post, file=file)
         return HttpResponseRedirect(reverse_lazy('app_main:main'))
@@ -49,6 +58,12 @@ class PostDetail(LoginRequiredMixin, DetailView):
     template_name = 'app_post/detail.html'
     queryset = Post.objects.all()
     context_object_name = 'post'
+
+    def get(self, request, *args, **kwargs):
+        instance = self.get_object()
+        instance.views = F('views') + 1
+        instance.save()
+        return super().get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
@@ -73,6 +88,10 @@ class PostDeleteView(IsOwnerMixin, DeleteView):
     model = Post
     http_method_names = ['post']
     success_url = reverse_lazy('app_main:main')
+
+    def post(self, request, *args, **kwargs):
+        super().post(request, *args, **kwargs)
+        return JsonResponse(data={'data': True}, safe=False)
 
 
 class PostHeartView(LoginRequiredMixin, CreateView):
@@ -99,3 +118,14 @@ def different_day(created):
 def top_comment(object_list):
     comment_list = object_list.filter(comment=None).order_by('created').reverse()[:2]
     return comment_list
+
+
+@register.filter
+def add_link(content):
+    url = f'{reverse_lazy("app_post:list")}?search='
+    content = [f'<a href="{url}{x[1:]}">{x}</a>' if is_tag(x) else x for x in content.split(' ')]
+    return ' '.join(content)
+
+
+def is_tag(literal):
+    return literal.startswith('#')

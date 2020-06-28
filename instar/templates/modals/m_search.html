@@ -1,19 +1,9 @@
-<div class="modal-search modal" id="{{ post.id }}">
-    <div class="modal-content">
-        <input type="hidden" name="post_id" value="{{ post.id }}" />
-        <input type="hidden" name="author_id" value="{{ author }}" />
+<div class="modal-search modal search-top">
+    <div class="modal-content bg-light">
+        <button class="btn border w-100">취소</button>
 
-        {% if page != 'detail' %}
-            <button class="btn border-bottom w-100" value="detail">게시물 보기</button>
-        {% endif %}
-
-        {% if user.id == author %}
-            {% if page == 'detail'%}
-                <button class="btn border-bottom w-100" value="update">게시물 수정</button>
-            {% endif %}
-            <button class="btn border-bottom w-100" value="delete">게시물 삭제</button>
-        {% endif %}
-
-        <button class="btn border-bottom w-100" value="cancel">취소</button>
+        <div class="search-layout" hidden>
+            <button class="btn border w-100 text-left bg-white mb-1 result"></button>
+        </div>
     </div>
 </div>

@@ -4,5 +4,6 @@
         <small>{{ post.heart_set.all|length}}</small>
     </button>
     <span class="btn"><i class="far fa-comment font-size-1_3rem"></i><small>{{ post.comment_set.all|length}}</small></span>
+    <small>조회수 : {{ post.views }}</small>
     <small class="ml-3">{{ post.created|different_day }}</small>
 </div>

@@ -13,7 +13,7 @@
     <div class="card-body p-0 pt-2">
 
         <div class="content px-3 mb-5">
-            <div class="text-overflow-ellipsis">{{ post.content }}</div>
+            <div class="text-overflow-ellipsis add-link">{{ post.content|add_link|safe }}</div>
             {% if post.content|length > 30 %}
             <span class="more cursor-pointer position-absolute" style="right: 1rem;">더 보기</span>
             {% endif %}

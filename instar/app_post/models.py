@@ -18,6 +18,7 @@ class Post(BaseModel):
     content = models.TextField()
     author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     tag = models.ManyToManyField(Tag, through='TagPost', through_fields=('post', 'tag'))
+    views = models.IntegerField(default=0)
 
     @property
     def main_file(self):

@@ -28,7 +28,6 @@ $(document).ready(function() {
         $(this).addClass('height-80vh');
     })
     $('.show-sub-comment').click(function() {
-
         let $sub = $(this).parent().find('.sub-comment')
         $sub.css('display', ($sub.is(':visible'))? 'none' : 'block')
     });

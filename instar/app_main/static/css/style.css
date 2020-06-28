@@ -85,3 +85,7 @@ textarea {
     padding: 1px;
     background-color: rgb(100, 100, 100);
 }
+
+.add-link a {
+    color: rgb(50, 50, 250);
+}

@@ -19,7 +19,7 @@
                 {% endif %}
             </div>
             <div class="card-body overflow-scroll border-bottom content height-30vh">
-                <div class="ml-3 pre-box">{{ post.content }}</div>
+                <div class="ml-3 pre-box add-link">{{ post.content|add_link|safe }}</div>
             </div>
 
             <div class="card-body bg-light border-bottom overflow-scroll comment height-30vh">

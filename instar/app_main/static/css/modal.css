@@ -12,10 +12,17 @@
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 
+.search-top {
+    top: 3rem;
+}
+
 .modal-content {
-  background-color: #fefefe;
-  margin: auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 30%;
+    border: 3px solid rgb(100, 100, 100);
+    margin: auto;
+    padding: 20px;
+    width: 30%;
+}
+
+.result {
+    background-color: rgb(150, 150, 150);
 }

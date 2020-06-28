@@ -2,9 +2,9 @@ $(document).ready(function() {
     let $bOption = $('.btn-option');
     let $currentModal = null;
 
-    $bOption.click(function() {
+    $bOption.click(function(e) {
         let id = $(this).val();
-        console.log(id);
+        e.stopPropagation();
         $currentModal = $('#'+id+'.modal-option')
         $currentModal.css('display', 'block');
     });
@@ -39,9 +39,64 @@ $(document).ready(function() {
     });
 
     let $bUpload = $('.btn-upload');
-    $bUpload.click(function() {
+    $bUpload.click(function(e) {
+        e.stopPropagation();
         $currentModal = $('.modal-upload');
         $currentModal.css('display', 'block');
     });
 
+    let $keyword = $('input[name="keyword"]');
+    let $layout = $('.search-layout');
+    $keyword.keyup(function(e) {
+        e.stopPropagation();
+        $currentModal = $('.modal-search');
+        if ($(this).val() === '') {
+            $currentModal.css('display', 'none');
+            return false;
+        } else {
+            $currentModal.css('display', 'block');
+        }
+
+        let keyword = $(this).val();
+        $.ajax({
+            url: '/search',
+            method: 'get',
+            data: {'keyword': keyword},
+            success: function(response) {
+                let data = JSON.parse(response.data)['data'];
+
+                let result = []
+                data['tags'].forEach(x => {
+                    let $factor = $layout;
+                    $factor.find('button').text(x);
+                    $factor.find('button').val('tag ' + x);
+                    result.push($factor.html());
+                })
+                data['users'].forEach(x => {
+                    let $factor = $layout;
+                    $factor.find('button').text(x[1]);
+                    $factor.find('button').val('user ' + x[0]);
+                    result.push($factor.html());
+                })
+                $currentModal.find('.modal-content').html(result);
+                console.log($('.modal-search').html());
+            },
+            error: function(error) {
+                console.log(error);
+            },
+            complete: function(e) {
+                $('.loading-img').css('display', 'none')
+            },
+            timeout: 2000
+        })
+    });
+
+    $('body').on('click', '.result', function(e) {
+        let url = '';
+        if ($(this).val().split(' ')[0] == 'user') {
+            url = '/user/' + $(this).val().split(' ')[1];
+        } else {
+            url = '/post?search=' + $(this).val().split(' ')[1];
+        }
+    });
 })
