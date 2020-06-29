@@ -89,3 +89,22 @@ textarea {
 .add-link a {
     color: rgb(50, 50, 250);
 }
+
+.post-field {
+    width: 60%;
+    min-height: 100vh;
+}
+@media only screen and (max-width: 1000px) {
+    .profile-box {
+        display: none;
+    }
+    .post-field {
+        width: 100%;
+    }
+    .header-option {
+        width: 95%;
+    }
+    .middle {
+        display: none;
+    }
+}

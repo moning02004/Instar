@@ -35,10 +35,9 @@ class MainView(TemplateView):
 class SearchView(IsLoginRequiredAndAjaxMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
-        keyword = f"{request.GET.get('keyword')}"
-        print(keyword)
+        keyword = request.GET.get('keyword')
         tag_list = Tag.objects.filter(keyword__icontains=keyword)
-        user_list = User.objects.filter(name__icontains=request.GET.get('keyword'))
+        user_list = User.objects.filter(Q(name__icontains=keyword) | Q(username__icontains=keyword))
 
         response = {'data': {'tags': [f'#{x.keyword[1:]}' for x in tag_list[:8]], 'users': [[x.id, x.name] for x in user_list[:5]]}}
         response = json.dumps(response)

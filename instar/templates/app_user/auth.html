@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="text-center mx-auto" style="width: 30%">
+<div class="text-center mx-auto mobile">
     <div class="border rounded p-3 bg-white mx-auto w-100">
         <a href="{% url 'app_main:main' %}" class="logo-font h1 d-block mb-3">instar</a>
+        {% if form.errors %}<div class="my-3">요청하신 정보가 올바르지 않습니다.<br />다시 입력해주세요</div>{% endif %}
         {% if page == 'login' %}
             {% include 'app_user/_login_box.html' %}
         {% elif page == 'register' %}

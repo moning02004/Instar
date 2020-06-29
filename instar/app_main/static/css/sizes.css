@@ -7,10 +7,9 @@
 .img-size-64px {width: 64px; height: 64px;}
 .img-size-200px {width: 200px; height: 200px;}
 
-.height-80vh {height: 80vh;}
-.height-30vh {height: 30vh;}
-.min-height-30vh {min-height: 30vh;}
-.height-10vh {height: 10vh;}
+.height-80vh {height: 30rem;}
+.height-30vh {height: 15rem;}
+.height-10vh {height: 5rem;}
 
 .post-header-32px img {width: 32px; height: 32px; margin-right: 0.5rem;}
 
@@ -18,3 +17,16 @@
 .comment-24px img {width: 24px; height: 24px; margin-right: 0.5rem;}
 
 .font-size-0_75rem {font-size: 0.75rem;}
+.mobile {width: 30%;}
+
+@media only screen and (max-width: 1000px) {
+    .height-80vh {
+        height: 15rem;
+    }
+    .height-30vh {
+        height: 10rem;
+    }
+    .mobile {
+        width: 100%;
+    }
+}

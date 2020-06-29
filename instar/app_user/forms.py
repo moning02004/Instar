@@ -11,7 +11,7 @@ class UserLoginForm(AuthenticationForm):
 
 class UserRegisterForm(UserCreationForm):
     username = forms.CharField(widget=TextInput(attrs={'placeholder': 'user@example.com'}))
-    password1 = forms.CharField(widget=PasswordInput(attrs={'placeholder': 'password'}))
+    password1 = forms.CharField(widget=PasswordInput(attrs={'placeholder': '비밀번호를 입력해주세요'}))
     password2 = forms.CharField(widget=PasswordInput(attrs={'placeholder': '한 번 더 입력해주세요'}))
     name = forms.CharField(widget=TextInput(attrs={'placeholder': '이름을 입력해주세요'}))
     phone = forms.CharField(widget=TextInput(attrs={'placeholder': '휴대 전화번호를 입력해주세요'}))

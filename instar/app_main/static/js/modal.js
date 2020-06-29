@@ -9,6 +9,16 @@ $(document).ready(function() {
         $currentModal.css('display', 'block');
     });
 
+    let $bFollow = $('.btn-follow-info, .btn-follower-info')
+    $bFollow.click(function(e) {
+        let id = 'follow'
+        if ($(this).text().split(' ')[0] === '팔로워') {
+            id = 'follower'
+        }
+        $currentModal = $('#'+id+'.modal-follow')
+        $currentModal.css('display', 'block');
+    });
+
     $('.modal-content button').click(function() {
         let $parent = $(this).parent()
         let post = $parent.find('input[name="post_id"]').val()
@@ -40,7 +50,6 @@ $(document).ready(function() {
 
     let $bUpload = $('.btn-upload');
     $bUpload.click(function(e) {
-        e.stopPropagation();
         $currentModal = $('.modal-upload');
         $currentModal.css('display', 'block');
     });
@@ -48,7 +57,6 @@ $(document).ready(function() {
     let $keyword = $('input[name="keyword"]');
     let $layout = $('.search-layout');
     $keyword.keyup(function(e) {
-        e.stopPropagation();
         $currentModal = $('.modal-search');
         if ($(this).val() === '') {
             $currentModal.css('display', 'none');
@@ -98,5 +106,6 @@ $(document).ready(function() {
         } else {
             url = '/post?search=' + $(this).val().split(' ')[1];
         }
+        location.href = url;
     });
 })

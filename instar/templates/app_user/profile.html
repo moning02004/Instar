@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="row w-100 mx-auto">
-    <div class="profile w-25">
+    <div class="profile col-sm-4">
         <img
                 src="{% if profile.get_profile_image.image.url %}
                     {{ profile.get_profile_image.image.url }}
@@ -15,21 +15,24 @@
         />
     </div>
 
-    <div class="w-75">
+    <div class="col-sm-8">
         <div class="d-inline">{{ profile.name }} ({{ profile.email }})</div>
 
         {% if user == profile %}
             <a href="{% url 'app_user:u_profile' user.id %}" class="btn profile-modal"><i class="fas fa-cog font-size-1_3rem"></i></a>
         {% else %}
-            <button class="btn border ml-auto bg-primary text-white btn-follow" id="{{ user.id }}" value="{{ profile.id }}">
+            <button
+                    class="btn border ml-auto btn-follow {% if profile in user.follow.all %} bg-primary text-light {% endif %}"
+                    id="{{ user.id }}"
+                    value="{{ profile.id }}">
                 {% if profile not in user.follow.all %}팔로우{% else %}팔로우 취소{% endif %}
             </button>
         {% endif %}
 
         <div class="d-flex justify-content-between mt-3 w-50">
             <div>게시물 {{ profile.post_set.all|length }}</div>
-            <div>팔로워 <span id="follower">{{ follower|length }}</span></div>
-            <div>팔로잉 <span id="follow">{{ follow|length}}</span></div>
+            <div class="cursor-pointer btn-follower-info">팔로워 <span id="follower">{{ follower|length }}</span></div>
+            <div class="cursor-pointer btn-follow-info">팔로잉 <span id="follow">{{ follow|length}}</span></div>
         </div>
         <div class="mt-3">{{ profile.explain}}</div>
     </div>
@@ -44,6 +47,8 @@
 </div>
 
 {% include 'modals/m_option.html' %}
+{% include 'modals/m_follow.html' with users=profile.follow.all type='follow' %}
+{% include 'modals/m_follow.html' with users=profile.follower.all type='follower' %}
 
 {% load static %}
 <script src="{% static 'js/user_ajax.js' %}"></script>

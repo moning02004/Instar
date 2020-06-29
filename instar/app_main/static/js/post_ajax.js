@@ -47,5 +47,43 @@ $(document).ready(function() {
         });
     });
 
+    let $postSubmit = $('#post-form .btn-submit');
+    $postSubmit.click(function(e) {
+        let formData = new FormData();
+        let fileList = $('input[type="file"]')[0].files;
+        for ( let x of fileList) {
+            formData.append('images', x);
+        }
+        formData.append('content', $('textarea[name="content"]').val())
+        if (formData.get('content') === '') {
+            formData.delete('content');
+        }
+        if (!(formData.has('images') && formData.has('content'))) {
+            alert('입력 정보를 확인해주세요')
+            return false;
+        }
+        $.post({
+            url: '/post/create',
+            data: formData,
+            enctype: 'multipart/form-data',
+            success: function(response) {
+                if (response.data) {
+                    location.reload();
+                } else {
+
+                }
+            },
+            error: function(error) {
+                console.log(error);
+            },
+            processData: false,
+            contentType: false,
+            complete: function(e) {
+                $('.loading-img').css('display', 'none')
+            },
+        })
+
+        return false;
+    })
 
 });

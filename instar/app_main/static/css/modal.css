@@ -1,4 +1,4 @@
-.modal-option, .modal-upload, .modal-report, .modal-report-content {
+.modal-option, .modal-upload, .modal-follow {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
     z-index: 1000; /* Sit on top */
@@ -25,4 +25,10 @@
 
 .result {
     background-color: rgb(150, 150, 150);
+}
+
+@media only screen and (max-width: 1000px) {
+    .modal-content {
+        width: 90%;
+    }
 }

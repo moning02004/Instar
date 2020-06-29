@@ -11,17 +11,7 @@ $(document).ready(function() {
                 $('.loading-img').css('display', 'none')
             },
             success: (response) => {
-                $(this).text((response.data) ? '팔로우' : '팔로우 취소')
-                $.ajax({
-                    url: '/user/' + target + '/follow',
-                    method: 'get',
-                    success: function(response) {
-                        $('#follower').text(response.data);
-                    },
-                    error: function(error) {
-                        console.log(error);
-                    }
-                })
+                location.reload();
             },
             error: function(error) {
                 alert('에러가 발생했습니다.')

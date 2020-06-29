@@ -7,7 +7,7 @@ from django.template.defaulttags import register
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, DeleteView, UpdateView, CreateView
 
-from app_main.mixin import IsOwnerMixin
+from app_main.mixin import IsOwnerMixin, IsLoginRequiredAndAjaxMixin
 from app_post.forms import PostUpdateForm
 from app_post.models import Post, File, Heart, Tag
 
@@ -34,23 +34,26 @@ class PostList(LoginRequiredMixin, ListView):
         return post_list
 
 
-class PostCreateView(LoginRequiredMixin, CreateView):
+class PostCreateView(IsLoginRequiredAndAjaxMixin, CreateView):
     login_url = reverse_lazy('app_user:login')
     queryset = Post.objects.all()
     http_method_names = ['post']
 
     def post(self, request, *args, **kwargs):
-        content = request.POST.get('content')
-        tag_list = list(filter(is_tag, content.split(' ')))
+        try:
+            content = request.POST.get('content')
+            tag_list = list(filter(is_tag, content.split(' ')))
 
-        post = Post.objects.create(author=request.user, content=content)
-        for tag in tag_list:
-            tag_instance = Tag.objects.create(keyword=tag[1:])
-            post.tag.add(tag_instance)
+            post = Post.objects.create(author=request.user, content=content)
+            for tag in tag_list:
+                tag_instance = Tag.objects.create(keyword=tag[1:])
+                post.tag.add(tag_instance)
 
-        for file in request.FILES.getlist('images'):
-            File.objects.create(post=post, file=file)
-        return HttpResponseRedirect(reverse_lazy('app_main:main'))
+            for file in request.FILES.getlist('images'):
+                File.objects.create(post=post, file=file)
+            return JsonResponse(data={'data': True}, safe=False)
+        except:
+            return JsonResponse(data={'data': False}, safe=False)
 
 
 class PostDetail(LoginRequiredMixin, DetailView):

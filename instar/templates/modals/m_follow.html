@@ -1,0 +1,27 @@
+<div class="modal-follow modal" id="{{ type }}">
+    <div class="modal-content bg-light py-2">
+        <button class="btn rounded-circle bg-danger text-white ml-auto border mb-1" value="cancel"><i class="fas fa-times"></i></button>
+        {% for profile in users %}
+            <div class="p-2 rounded border w-100 text-left bg-white mb-1">
+                <div class="d-flex">
+                    <div class="my-auto">{{ profile.name }}</div>
+                    {% if profile != user %}
+                        <a class="btn ml-auto p-0 pr-1" href="{% url 'app_user:profile' profile.id %}">
+                            <i class="fas fa-share"></i>
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        {% empty %}
+            <div>
+                회원님이 팔로우하는 사람
+                회원님이 팔로우하는 사람들이 여기에 표시됩니다.
+            </div>
+        {% endfor %}
+
+
+        <div class="search-layout" hidden>
+            <button class="btn border w-100 text-left bg-white mb-1 result"></button>
+        </div>
+    </div>
+</div>
