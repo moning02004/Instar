@@ -1,13 +1,15 @@
 import React from 'react';
-import { Box, Divider } from '@material-ui/core';
+import { Box } from '@material-ui/core';
 
 
 function ImgContent(props) {
+    
+    console.log(props.content);
+    const content = String(props.content);
     return (
         <React.Fragment>
-            <Divider />
-            <Box className="image-content" px={3} pt={2}>
-                <div>{props.content}</div>
+            <Box height={props.height} px={3} pt={2}>
+                <div className={props.className}>{content.toString()}</div> 
             </Box>
         </React.Fragment>
     )

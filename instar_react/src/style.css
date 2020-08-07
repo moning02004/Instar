@@ -52,11 +52,17 @@ body, html {
 .cursor-pointer {
     cursor: pointer;
 }
+.divider {
+    width: 80%;
+}
 @media screen and (max-width: 1024px){
     .auth-box {
         width: 90%;
     }
     .header .search{
         display: none;
+    }
+    .divider{
+        width: 100%;
     }
 }

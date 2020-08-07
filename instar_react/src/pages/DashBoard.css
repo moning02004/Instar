@@ -1,7 +1,7 @@
 .dashboard {
     position: relative;
     width: 70%;
-    padding-top: 2rem;
+    top: 2rem;
     margin: auto;
 }
 
@@ -36,14 +36,13 @@
 .input-comment {
     position: relative;
     width: 100%;
-    height: 90%;
     padding-left: 1rem;
     border: 0;
     left: 0%;
 }
 .send-button {
     margin-left: auto;
-    margin-right: 1rem;
+    padding-right: 1rem;
 }
 
 @media screen and (max-width: 1024px){

@@ -1,12 +1,11 @@
 import React from 'react';
-import { Divider, Box } from '@material-ui/core';
+import { Box } from '@material-ui/core';
 
 
 function ImgSlider(props) {
     return (
         <React.Fragment>
-            <Divider />
-            <Box style={{height: '300px'}}>
+            <Box height={props.height || '20rem'}>
                 
             </Box>
         </React.Fragment>
