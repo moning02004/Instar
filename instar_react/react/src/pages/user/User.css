@@ -1,0 +1,25 @@
+.user-info {
+    width: 80%;
+    margin: auto;
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.user-info .image {
+    width: 20%;
+    margin-right: 2.5em;
+}
+.user-info .image img {
+    border-radius: 50%;
+}
+@media screen and (max-width: 1024px) {
+    .user-info{
+        width: 100%;
+        display: block;
+    }
+
+    .user-info > .image {
+        width: 100%;
+        text-align: center;
+    }
+}
