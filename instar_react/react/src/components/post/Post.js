@@ -9,14 +9,13 @@ import ImgComment from './ImgComment';
 import AuthService from '../../services/AuthService';
 
 const Post = (props) => {
-    console.log(props)
     return (
         <React.Fragment>
             <Box borderRadius={4} border={1} borderColor="rgb(228, 228, 228)" style={{backgroundColor: 'white'}}>
                 <Profile user={{
-                    name: props.post.author.name, 
-                    profilePic: props.post.author.get_avatar,
-                    userId: props.post.author.id
+                        name: props.post.author.name, 
+                        profilePic: props.post.author.get_avatar,
+                        userId: props.post.author.id
                     }} position="post" post_id={props.post.id}/>
                 
                 <Divider />

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route } from "react-router-dom";
 import PostDetail from '../pages/post/PostDetail';
-import NotFound from '../pages/NotFound';
+import NotFound from '../pages/main/NotFound';
 
 export const PostRouter = (props) =>{
     return (

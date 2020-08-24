@@ -9,14 +9,15 @@ def avatar_path(instance, filename):
 class User(AbstractUser):
     username = models.EmailField(unique=True)
     name = models.CharField(max_length=30)
-    phone = models.CharField(max_length=20)
+    nickname = models.CharField(max_length=100, default='')
+    phone = models.CharField(max_length=20, default='010')
     following = models.ManyToManyField('self', symmetrical=False, related_name='follower')
     description = models.TextField(default='안녕하세요')
 
     @property
     def get_avatar(self):
         avatar = self.avatar_set.order_by('created').last()
-        return avatar.image.url if avatar else ''
+        return avatar if avatar else None
 
     @property
     def post_count(self):

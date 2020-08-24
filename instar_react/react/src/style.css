@@ -57,6 +57,10 @@ body, html {
     right: 0;
     transform: translateY(-50%);
 }
+
+.description {
+    white-space: pre-line;
+}
 @media screen and (max-width: 1024px){
     .auth-box {
         width: 90%;

@@ -8,7 +8,7 @@ const axios = require('axios');
 const Register = (props) => {
     let [email, setEmail] = React.useState('')
     let [name, setName] = React.useState('')
-    let [phone, setPhone] = React.useState('')
+    let [nickname, setNickname] = React.useState('')
     let [password1, setPassword1] = React.useState('')
     let [password2, setPassword2] = React.useState('')
     let [userCheck, setUserCheck] = React.useState(false)
@@ -16,7 +16,7 @@ const Register = (props) => {
 
     const onRegister = (e) => {
         e.preventDefault();
-        AuthService.register(email, password1, password2, name, phone).then( response => {
+        AuthService.register(email, password1, password2, name, nickname).then( response => {
             window.location.replace('/login'); 
         }).catch( error => {
             
@@ -65,8 +65,8 @@ const Register = (props) => {
                 <TextField variant="outlined" size="small" margin="dense" fullWidth label="*이름" 
                     value={name} onChange={(e) => setName(e.target.value)}
                 />
-                <TextField variant="outlined" size="small" margin="dense" fullWidth label="*전화번호" 
-                    value={phone} onChange={(e) => setPhone(e.target.value)}
+                <TextField variant="outlined" size="small" margin="dense" fullWidth label="*별명" 
+                    value={nickname} onChange={(e) => setNickname(e.target.value)}
                 />
                 <TextField variant="outlined" size="small" margin="dense" fullWidth type='password' label="*비밀번호" 
                     value={password1} onChange={(e) => setPassword1(e.target.value)} error={!pwCheck}
@@ -75,7 +75,7 @@ const Register = (props) => {
                     value={password2} onChange={(e) => setPassword2(e.target.value)} error={password1 !== password2}
                 />
                 <Button fullWidth variant="outlined" style={{marginTop: '1.3rem'}} onClick={onRegister}
-                    disabled={email === "" || password1 === "" || password2 === "" || name === "" || phone === "" || !userCheck || !pwCheck}
+                    disabled={email === "" || password1 === "" || password2 === "" || name === "" || nickname === "" || !userCheck || !pwCheck}
                 >가입하기</Button>
 
                 <Box className="cursor-pointer" border={1} borderColor="rgb(50, 50, 250)" mt={3} py={1} borderRadius={4} onClick={() => {window.location.href = '/login'}}>

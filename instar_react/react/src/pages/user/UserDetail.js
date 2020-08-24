@@ -14,12 +14,11 @@ const UserDetail = (props) => {
     useEffect( () => {
         axios.get(CONSTANTS.URL + '/user/' + props.match.params.id, { headers: authHeader() }).then( response => {
             console.log(response.data);
-            setUser(response.data)
+            setUser(response.data);
         })
     }, [props.match.params.id])
 
     const onFollowHandle = (e) => {
-        console.log(authHeader());
         axios.patch(CONSTANTS.URL + '/user/' + AuthService.currentUser() +'/'+ props.match.params.id, {}, { headers: authHeader() }).then( response => {
             window.location.reload();
         })
@@ -31,7 +30,7 @@ const UserDetail = (props) => {
                     <Container >
                         <Box className="user-info">
                             <Box className="image">
-                                <img alt="정" src={user.get_avatar || process.env.PUBLIC_URL + '/avatar.png'} width="100%" />
+                                <img alt="정" src={(user.get_avatar) ? user.get_avatar.image : process.env.PUBLIC_URL + '/avatar.png'} />
                             </Box>
                             <Box style={{width: '80%'}}>
                                 <Box display="flex" my="auto" mb={1}>
@@ -45,7 +44,7 @@ const UserDetail = (props) => {
                                         </Button>
                                         ) 
                                     }    
-                                    <IconButton><FiSettings /></IconButton>
+                                    <IconButton onClick={() => window.location.replace(`/user/${AuthService.currentUser()}/edit`)}><FiSettings /></IconButton>
                                 </Box>
                                 
                                 <Box>
@@ -54,8 +53,8 @@ const UserDetail = (props) => {
                                     <span>팔로워 {user.follower.length}</span>
                                 </Box>
 
-                                <Box mt={3}>
-                                    <p>{user.description}</p>
+                                <Box my={3} height="6rem" style={{overflowY: 'scroll'}}>
+                                    <div className="description">{user.description}</div>
                                 </Box>
                             </Box>
                         </Box>

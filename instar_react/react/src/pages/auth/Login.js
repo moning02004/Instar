@@ -6,7 +6,7 @@ const Login = (props) => {
     let [username, setUsername] = React.useState('');
     let [password, setPassword] = React.useState('');
     let [error, setError] = React.useState(false)
-    
+
     const login = (e) => {
         e.preventDefault();
         AuthService.login(username, password).then( () => {

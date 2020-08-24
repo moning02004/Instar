@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import { Box, Divider } from '@material-ui/core';
 import Profile from '../../components/Profile';
-import ImgHeart from '../../components/timeline/ImgHeart';
-import ImgContent from '../../components/timeline/ImgContent';
-import ImgComment from '../../components/timeline/ImgComment';
-import ImgCommentInput from '../../components/timeline/ImgCommentInput';
-import ImgSlider from '../../components/timeline/ImgSlider';
+import ImgHeart from '../../components/post/ImgHeart';
+import ImgContent from '../../components/post/ImgContent';
+import ImgComment from '../../components/post/ImgComment';
+import ImgCommentInput from '../../components/post/ImgCommentInput';
+import ImgSlider from '../../components/post/ImgSlider';
 import { CONSTANTS } from '../../Constants';
 import Axios from 'axios';
 import AuthService from '../../services/AuthService';
@@ -27,23 +27,25 @@ function PostDetail(props) {
                 <React.Fragment>
                     <Box className="post-detail">
                         <Box borderRadius={4} border={1} borderColor="rgb(228, 228, 228)" style={{backgroundColor: 'white'}}>
-                            <Box display='flex' flexWrap="nowrap" minHeight="40rem">
-                                
+                            <Box display='flex' flexWrap="nowrap" minHeight="35rem">
                                 <Box width='65%' style={{borderRight: '1px solid rgb(208, 208, 208)'}}>
                                     <ImgSlider images={post.image_set} />
-                                    <Divider />
-                                    <Box display="flex" width="100%" flexWrap="wrap" minHeight="10rem">
+                                </Box>
+
+                                <Box width='35%' display="flex" flexWrap='wrap'>
+                                    <Box mb="auto" width="100%">
                                         <Profile user={{
                                             name: post.author.name,
                                             profilePic: post.author.get_avatar,
                                             userId: post.author.id
                                             }} post_id={post.id}/>
+                                        <Divider />
                                         <ImgContent content={post.content} />
+                                        <Divider />
+                                        <Box mb="auto" width="100%">
+                                            <ImgComment />
+                                        </Box>
                                     </Box>
-                                </Box>
-
-                                <Box width='35%' display="flex" flexWrap='wrap'>
-                                    <ImgComment width='100%' />
                                     <Box mt="auto" width='100%'>
                                         <Divider />
                                         <Box my="auto" ml="auto">

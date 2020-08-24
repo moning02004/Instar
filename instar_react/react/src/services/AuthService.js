@@ -3,8 +3,9 @@ import Axios from "axios"
 import JwtDecode from "jwt-decode";
 
 class AuthService {
+    
     checkToken = () => {
-        if (sessionStorage.getItem("TOKEN")) {
+        if (sessionStorage.getItem("TOKEN") !== null) {
             let decoded = new JwtDecode(sessionStorage.getItem("TOKEN"));
             if (decoded.exp - Math.ceil(Date.now() / 1000) < 100) {
                 Axios.post(CONSTANTS.URL + '/user/refresh', {
@@ -14,11 +15,11 @@ class AuthService {
                         sessionStorage.setItem("TOKEN", response.data.token);
                     }
                 }).catch( error => {
+                    alert('세션이 만료되어 로그인 페이지로 이동합니다.')
                     this.logout();
-                    window.location.replace('/login')
                 });
             }
-        }
+        } 
     }
     login = (username, password) => {
         return Axios.post(CONSTANTS.URL + '/user/login', {
@@ -29,26 +30,30 @@ class AuthService {
                 sessionStorage.setItem("TOKEN", response.data.token);
             }
             return response.data;
-        });
+        })
     }
 
-    register = (username, password1, password2, name, phone) => {
-        return Axios.post(CONSTANTS.URL + '/user/register', {
+    register = (username, password1, password2, name, nickname) => {
+        return Axios.post(CONSTANTS.URL + '/user/', {
             username: username,
             password1: password1,
             password2: password2,
             name: name,
-            phone: phone,
+            nickname: nickname
         })
     }
 
     logout = () => {
         sessionStorage.removeItem("TOKEN");
+        window.location.replace('/login');
     }
 
     currentUser = () => {
-        let decoded = new JwtDecode(sessionStorage.getItem("TOKEN"));
-        return decoded.user_id
+        if (sessionStorage.getItem("TOKEN")) {
+            let decoded = new JwtDecode(sessionStorage.getItem("TOKEN"));
+            return decoded.user_id
+        }
+        return null;
     }
     isAuthenticated = () => {
         if (sessionStorage.getItem("TOKEN")) {

@@ -6,7 +6,7 @@ from rest_framework.views import APIView
 
 from api_post.serializers import PostThumbnailSerializer
 from api_user.models import User
-from api_user.serializers import UserInformation, UserFormSerializer
+from api_user.serializers import UserInformation, UserFormSerializer, UserListSerializer
 from common.permissions import IsOwner
 
 
@@ -31,6 +31,22 @@ class UserRegisterAPI(CreateAPIView):
 
 
 class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+
+    def get_serializer_class(self):
+        if self.action == 'list':
+            return UserListSerializer
+        if self.action == 'create':
+            return UserFormSerializer
+
+    def check_permissions(self, request):
+        if self.action == 'list':
+            self.permission_classes = [IsAuthenticated]
+        if self.action == 'create':
+            self.permission_classes = [AllowAny]
+
+
+class UserDetailViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):

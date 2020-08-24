@@ -13,7 +13,7 @@ class PostViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         typ = self.request.query_params.get('type')
         query = Q()
-        if typ == 'user':
+        if typ is None or typ == 'user':
             query.add(Q(author=self.request.user), query.OR)
             query.add(Q(author__in=self.request.user.following.all()), query.OR)
         elif typ == 'heart':

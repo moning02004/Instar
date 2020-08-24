@@ -1,13 +1,24 @@
 .dashboard {
     position: relative;
+    left: 0;
     width: 70%;
     margin: auto;
+    height: 35rem;
+    min-height: 35rem;
 }
 
 .timeline {
     position: absolute;
     left: 0%;
     width: 70%;
+    min-height: 100%;
+}
+.alert {
+    text-align: center;
+    line-height: 3rem;
+    background-color: white;
+    border: 1px solid rgb(208, 208, 208);
+    border-radius: 4px;
 }
 .profile {
     position: absolute;
@@ -15,8 +26,7 @@
 }
 
 .timeline  > div {
-    width: 80%;
-    margin: auto;
+    width: 90%;
     margin-bottom: 1rem;
 }
 .profile > div {
@@ -53,7 +63,7 @@
 .slider img {
     width: auto;
     max-width: 100%;
-    height: auto;
+    min-height: 100%;
     max-height: 70vh;
 }
 
@@ -71,8 +81,15 @@
     }
     .timeline  > div {
         width: 95%;
+        margin: auto;
+        margin-bottom: 1rem;
+
     }
     .slider {
         height: 20rem;
+    }
+    .slider > img {
+        max-height: 20rem;
+        width: auto;
     }
 }
