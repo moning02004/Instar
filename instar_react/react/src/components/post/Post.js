@@ -1,32 +1,27 @@
 import React from 'react';
 import { Box, Divider } from '@material-ui/core';
-import Profile from '../Profile';
-import ImgContent from './ImgContent';
+import {ImgContent} from './ImgContent';
 import ImgHeart from './ImgHeart';
 import ImgSlider from './ImgSlider';
 import ImgCommentInput from './ImgCommentInput';
 import ImgComment from './ImgComment';
 import AuthService from '../../services/AuthService';
+import { PostProfile } from './PostProfile';
 
 const Post = (props) => {
     return (
         <React.Fragment>
             <Box borderRadius={4} border={1} borderColor="rgb(228, 228, 228)" style={{backgroundColor: 'white'}}>
-                <Profile user={{
-                        name: props.post.author.name, 
-                        profilePic: props.post.author.get_avatar,
-                        userId: props.post.author.id
-                    }} position="post" post_id={props.post.id}/>
-                
+                <PostProfile post={props.post} />
                 <Divider />
                 <ImgSlider images={props.post.image_set} />
                 
                 <Divider />
-                <ImgHeart hasHeart={Array.from(props.post.heart_set).includes(AuthService.currentUser)} count={props.post.heart_set.length} />
+                <ImgHeart post={props.post} hasHeart={Array.from(props.post.heart_set).includes(AuthService.currentUser)} count={props.post.heart_set.length} />
                 
                 <ImgContent className="post-content" content={props.post.content} />
 
-                <ImgComment />
+                <ImgComment className="overflow-scroll" length="2" />
 
                 <Divider />
                 <ImgCommentInput />

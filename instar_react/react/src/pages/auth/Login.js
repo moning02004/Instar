@@ -20,7 +20,7 @@ const Login = (props) => {
             <div className="auth-box">
                 <div className="logo" style={{marginBottom: '1.5rem'}}>INSTAR</div>
                 <TextField variant="outlined" size="small" margin="dense" fullWidth label="이메일 or 전화번호"
-                    value={username} onChange={(e) => setUsername(e.target.value)} onKeyDown={(e) => {if (e.key === 'Enter') login(e)}}
+                    value={username} onChange={(e) => setUsername(e.target.value)}
                 />
                 <TextField variant="outlined" size="small" margin="dense" fullWidth type='password' label="비밀번호"
                     value={password} onChange={(e) => setPassword(e.target.value)} onKeyDown={(e) => {if (e.key === 'Enter') login(e)}}

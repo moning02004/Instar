@@ -9,9 +9,9 @@ import { PostRouter } from './router/PostRouter';
 import './pages/post/Post.css'
 import './pages/post/modal.css'
 import './pages/user/User.css'
-import PostList from './components/PostList';
 import AuthService from './services/AuthService';
 import { DashBoard } from './pages/main/DashBoard';
+import PostList from './pages/post/PostList';
 
 function App() {
 

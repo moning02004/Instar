@@ -22,11 +22,7 @@ const ProfileBox = (props) => {
                 <React.Fragment>
                     <Box width="70%" border={1} borderColor="rgb(228, 228, 228)" style={{backgroundColor: 'white'}} borderRadius={4}>
                         <Box display="flex">
-                            <Profile user={{
-                                name: user.name, 
-                                avatar: (user.get_avatar) ? user.get_avatar.image : process.env.PUBLIC_URL + '/avatar.png', 
-                                userId: user.id
-                            }} />
+                            <Profile user={user} />
                         </Box>
                     </Box>
 

@@ -1,25 +1,35 @@
 import React, { useEffect } from 'react';
-import { Box, Divider} from '@material-ui/core';
-import ImgHeart from '../../components/post/ImgHeart';
-import ImgComment from '../../components/post/ImgComment';
-import ImgCommentInput from '../../components/post/ImgCommentInput';
+import { Box, Divider } from '@material-ui/core';
 import ImgSlider from '../../components/post/ImgSlider';
 import { CONSTANTS } from '../../Constants';
-import Axios from 'axios';
+import axios from 'axios';
+import authHeader from '../../services/auth-header';
 import { PostProfile } from '../../components/post/PostProfile';
 import { ImgContent } from '../../components/post/ImgContent';
-import PostList from './PostList';
 
-function PostDetail(props) {
+export function PostEdit(props) {
     let [post, setPost] = React.useState();
-    console.log(props.user)
+
     useEffect( () => {
-        Axios.get(CONSTANTS.URL + '/post/' + props.match.params.id).then( response => {
+        axios.get(CONSTANTS.URL + '/post/' + props.match.params.id, {headers: authHeader()}).then( response => {
             setPost(response.data);
         }).catch( error => {
+            alert('잘못된 URL 입니다.')
+            window.location.replace('/')
         });
     }, [props.match.params.id]);
     
+    const onSubmit = (content) => {
+        axios.patch(`${CONSTANTS.URL}/post/${post.id}`, {
+            content: content
+        }, {headers: authHeader()}).then( response => {
+            if (response.status === 200) {
+                window.location.replace(`/post/${props.match.params.id}`);
+            }
+        }).catch ( error => {
+            
+        })
+    }
     return (
         <React.Fragment>
             { (post) && 
@@ -35,20 +45,9 @@ function PostDetail(props) {
                                     <Box mb="auto" width="100%">
                                         <PostProfile post={post} />
                                         <Divider />
-                                        <ImgContent editMode={false} content={post.content} height="10rem" />
-                                        <Divider />
-                                        <Box mb="auto" width="100%">
-                                            <ImgComment className="overflow-scroll" />
-                                        </Box>
                                     </Box>
-
-                                    <Box mt="auto" width='100%'>
-                                        <Divider />
-                                        <Box my="auto" ml="auto">
-                                            <ImgHeart post={post} />
-                                        </Box>
-                                        <Divider />
-                                        <ImgCommentInput />
+                                    <Box width="100%">
+                                        <ImgContent editMode={true} content={post.content} height="auto" onSubmit={onSubmit} />
                                     </Box>
                                 </Box>
                             </Box>
@@ -57,13 +56,8 @@ function PostDetail(props) {
                         </Box>
                     </Box>
 
-                    <Box>
-                        <PostList userId={post.author.id}/>
-                    </Box>
                 </React.Fragment>
             }
         </React.Fragment>
     )
 }
-
-export default PostDetail;

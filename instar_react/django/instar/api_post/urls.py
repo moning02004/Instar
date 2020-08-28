@@ -15,4 +15,6 @@ post_detail = views.PostDetailViewSet.as_view({
 urlpatterns = [
     path('', post),
     path('<int:pk>', post_detail),
+    path('<int:pk>/heart', views.PostHeartAPI.as_view()),
+
 ]

@@ -22,7 +22,7 @@ export const User = (props) => {
                 <div style={{fontSize: "0.85rem"}}>{props.user.email}</div>
                 <div style={{fontSize: "0.85rem"}}>{props.user.nickname}</div>
             </Box>
-            <Box style={{marginLeft: "auto"}}>
+            <Box style={{marginLeft: "auto"}} my="auto">
                 <Button onClick={onFollowHandle} style={{color: 'blue'}}>팔로우</Button>
             </Box>
         </Box>

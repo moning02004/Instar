@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Box, IconButton, Container, Button } from '@material-ui/core';
 import { Favorite, Message, Image } from '@material-ui/icons';
-import PostList from '../../components/PostList';
+import PostList from '../post/PostList';
 import { CONSTANTS } from '../../Constants';
 import { FiSettings, FiUserPlus } from "react-icons/fi";
 import AuthService from '../../services/AuthService';
@@ -19,7 +19,7 @@ const UserDetail = (props) => {
     }, [props.match.params.id])
 
     const onFollowHandle = (e) => {
-        axios.patch(CONSTANTS.URL + '/user/' + AuthService.currentUser() +'/'+ props.match.params.id, {}, { headers: authHeader() }).then( response => {
+        axios.patch(`${CONSTANTS.URL}/user/${AuthService.currentUser()}/${props.match.params.id}`, {}, { headers: authHeader() }).then( response => {
             window.location.reload();
         })
     }
@@ -53,8 +53,8 @@ const UserDetail = (props) => {
                                     <span>팔로워 {user.follower.length}</span>
                                 </Box>
 
-                                <Box my={3} height="6rem" style={{overflowY: 'scroll'}}>
-                                    <div className="description">{user.description}</div>
+                                <Box my={3} height="6rem" className="overflow-scroll">
+                                    <Box className="description">{user.description}</Box>
                                 </Box>
                             </Box>
                         </Box>

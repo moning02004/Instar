@@ -173,7 +173,7 @@ export const UserEdit = (props) => {
                             onClick={onLeave}>탈퇴</Button>
                     </Box>
                 </Box>
-                <Box style={style.panel}>
+                <Box style={style.panel} className="overflow-scroll">
                     <Box p={3}>
                         {panel}
                     </Box>
@@ -208,7 +208,6 @@ const style = {
         left: '20%', 
         borderLeft: '1px solid rgb(208, 208, 208)', 
         height: '100%',
-        overflowY: 'scroll'
     }
 }
 

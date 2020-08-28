@@ -78,7 +78,6 @@
     text-overflow: ellipsis;
     overflow: scroll;
     white-space: wrap;
-    max-height: 10rem;
     overflow-x: hidden;
 }
 .content-box::-webkit-scrollbar {

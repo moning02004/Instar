@@ -7,7 +7,7 @@ class AuthService {
     checkToken = () => {
         if (sessionStorage.getItem("TOKEN") !== null) {
             let decoded = new JwtDecode(sessionStorage.getItem("TOKEN"));
-            if (decoded.exp - Math.ceil(Date.now() / 1000) < 100) {
+            if (decoded.exp - Math.ceil(Date.now() / 1000) < 300) {
                 Axios.post(CONSTANTS.URL + '/user/refresh', {
                     token: sessionStorage.getItem("TOKEN")
                 }).then( response => {

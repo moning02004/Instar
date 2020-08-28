@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { Box } from '@material-ui/core';
 import axios from 'axios';
-import { CONSTANTS } from '../Constants';
-import authHeader from '../services/auth-header';
+import { CONSTANTS } from '../../Constants';
+import authHeader from '../../services/auth-header';
 import { BsFiles } from "react-icons/bs";
 
 
@@ -17,7 +17,7 @@ function PostList(props) {
                 setPosts(response.data);
             })
         } else {
-            axios.get(CONSTANTS.URL + '/post', {
+            axios.get(CONSTANTS.URL + '/post/', {
                 headers: authHeader(),
                 params: {
                     type: props.type

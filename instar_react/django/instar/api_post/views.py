@@ -1,10 +1,13 @@
 from django.db.models import Q
 from rest_framework import viewsets
+from rest_framework.generics import UpdateAPIView
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 from rest_framework.serializers import ModelSerializer
 
 from api_post.models import Post, Heart, Tag
 from api_post.serializers import PostFormSerializer, PostInformation
+from common.permissions import IsOwner
 
 
 class PostViewSet(viewsets.ModelViewSet):
@@ -33,7 +36,10 @@ class PostViewSet(viewsets.ModelViewSet):
 
 
 class PostDetailViewSet(viewsets.ModelViewSet):
-    queryset = Post.objects.all()
+    def get_queryset(self):
+        if self.request.user.is_authenticated:
+            return self.request.user.post_set.all()
+        return Post.objects.all()
 
     def get_serializer_class(self):
         if self.action == 'retrieve':
@@ -42,3 +48,18 @@ class PostDetailViewSet(viewsets.ModelViewSet):
             return PostFormSerializer
         if self.action == 'destroy':
             return ModelSerializer
+
+
+class PostHeartAPI(UpdateAPIView):
+    queryset = Post.objects.all()
+    permission_classes = [IsAuthenticated]
+
+    def partial_update(self, request, *args, **kwargs):
+        try:
+            post = self.get_object()
+            heart, is_created = Heart.objects.get_or_create(post=post, author=self.request.user)
+            if not is_created:
+                heart.delete()
+            return Response({'result': True})
+        except:
+            return Response({'result': False})
