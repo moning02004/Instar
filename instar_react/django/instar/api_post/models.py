@@ -3,7 +3,7 @@ from django.db import models
 
 
 def image_path(instance, filename):
-    return f'{instance.post.author.id}/post/{instance.post.id}/_{instance.id}_{filename}'
+    return f'{instance.user.id}_{instance.user.username}/post/{filename}'
 
 
 class Tag(models.Model):

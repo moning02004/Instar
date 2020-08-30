@@ -10,6 +10,15 @@ from api_user.serializers import UserInformation, UserFormSerializer, UserListSe
 from common.permissions import IsOwner
 
 
+class UserAuthAPI(APIView):
+    permission_classes = [IsAuthenticated]
+    http_method_names = ['post']
+
+    def post(self, request, *args, **kwargs):
+        user = User.objects.get(username=request.data.get('username'))
+        return Response({'data': user.check_password(request.data.get('password'))})
+
+
 class UserCheckAPI(APIView):
     permission_classes = [AllowAny]
     http_method_names = ['post']

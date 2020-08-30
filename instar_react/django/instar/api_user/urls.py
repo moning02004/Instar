@@ -21,6 +21,7 @@ urlpatterns = [
     path('refresh', refresh_jwt_token),
     path('verify', verify_jwt_token),
     path('check', views.UserCheckAPI.as_view()),
+    path('auth', views.UserAuthAPI.as_view()),
 
     path('', user_list),
     path('<int:pk>', user_detail),

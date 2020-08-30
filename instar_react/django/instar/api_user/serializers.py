@@ -28,9 +28,10 @@ class UserFormSerializer(serializers.ModelSerializer):
                   'avatar', 'nickname', 'description', 'email']
 
     def validate(self, attr):
-        if attr.get('password1') == attr.get('password2'):
+        password1 = attr.get('password1')
+        if password1 == attr.get('password2'):
             return attr
-        raise serializers.ValidationError('입력하신 내용을 확인해주십시오')
+        raise serializers.ValidationError('입력하신 내용을 확인해주십시오. (비밀번호 8자리 이상)')
 
     def create(self, validated_data):
         user = User()
@@ -57,7 +58,7 @@ class UserInformation(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['id', 'username', 'name', 'email', 'description', 'phone', 'nickname',    
+        fields = ['id', 'username', 'name', 'email', 'description', 'phone', 'nickname',
                   'get_avatar', 'following', 'follower', 'post_count']
 
 

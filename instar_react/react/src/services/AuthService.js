@@ -55,6 +55,13 @@ class AuthService {
         }
         return null;
     }
+    currentUsername = () => {
+        if (sessionStorage.getItem("TOKEN")) {
+            let decoded = new JwtDecode(sessionStorage.getItem("TOKEN"));
+            return decoded.username
+        }
+        return null;
+    }
     isAuthenticated = () => {
         if (sessionStorage.getItem("TOKEN")) {
             return true;

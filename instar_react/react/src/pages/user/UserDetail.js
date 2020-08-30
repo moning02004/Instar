@@ -13,7 +13,6 @@ const UserDetail = (props) => {
 
     useEffect( () => {
         axios.get(CONSTANTS.URL + '/user/' + props.match.params.id, { headers: authHeader() }).then( response => {
-            console.log(response.data);
             setUser(response.data);
         })
     }, [props.match.params.id])
