@@ -10,8 +10,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
-import os
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 from pathlib import Path
 
@@ -117,3 +115,5 @@ STATICFILES_DIRS = [
 
 MEDIA_URL = '/files/'
 MEDIA_ROOT = str(BASE_DIR / "upload")
+
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
