@@ -1,7 +1,7 @@
 <div class="header">
     <div class="header-option">
         <div class="position-absolute start">
-            <a href="{% url 'app_main:main' %}" class="logo-font font-size-2_5rem">instar</a>
+            <a href="{% url 'main' %}" class="logo-font font-size-2_5rem">instar</a>
         </div>
         <div class="position-absolute middle">
             <div class="input-group">
@@ -10,9 +10,9 @@
         </div>
         <div class="position-absolute end">
             <button class="btn btn-upload"><i class="fas fa-plus font-size-1_3rem"></i></button>
-            <a href="{% url 'app_post:list' %}?type=explore" class="btn"><i class="fas fa-compass font-size-1_3rem"></i></a>
-            <a href="{% url 'app_post:list' %}?type=heart" class="btn"><i class="fas fa-heart font-size-1_3rem"></i></a>
-            <a href="{% url 'app_user:profile' user.id %}" class="btn"><i class="fas fa-user font-size-1_3rem"></i></a>
+            <a href="{% url 'post:list' %}?type=explore" class="btn"><i class="fas fa-compass font-size-1_3rem"></i></a>
+            <a href="{% url 'post:list' %}?type=heart" class="btn"><i class="fas fa-heart font-size-1_3rem"></i></a>
+            <a href="{% url 'account:profile' user.id %}" class="btn"><i class="fas fa-user font-size-1_3rem"></i></a>
         </div>
     </div>
 </div>

@@ -19,7 +19,7 @@
         <div class="d-inline">{{ profile.name }} ({{ profile.email }})</div>
 
         {% if user == profile %}
-            <a href="{% url 'app_user:u_profile' user.id %}" class="btn profile-modal"><i class="fas fa-cog font-size-1_3rem"></i></a>
+            <a href="{% url 'account:u_profile' user.id %}" class="btn profile-modal"><i class="fas fa-cog font-size-1_3rem"></i></a>
         {% else %}
             <button
                     class="btn border ml-auto btn-follow {% if profile in user.follow.all %} bg-primary text-light {% endif %}"

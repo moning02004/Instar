@@ -1,4 +1,4 @@
-<form action="{% url 'app_user:login' %}" method="post"> {% csrf_token %}
+<form action="{% url 'account:login' %}" method="post"> {% csrf_token %}
     {% for field in form %}
         <div class="form-group">
             {{ field | add_class:'form-control'}}
