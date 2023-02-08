@@ -4,7 +4,7 @@
 {% endif %}
 {% for follow in user.follow.all|slice:':5' %}
 <div class="row">
-    <a href="{% url 'app_user:profile' follow.id %}" class="my-auto">
+    <a href="{% url 'account:profile' follow.id %}" class="my-auto">
         <img src="{% if follow.get_profile_image.image.url %}
                     {{ follow.get_profile_image.image.url }}
                     {% else %}

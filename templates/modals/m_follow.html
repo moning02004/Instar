@@ -6,7 +6,7 @@
                 <div class="d-flex">
                     <div class="my-auto">{{ profile.name }}</div>
                     {% if profile != user %}
-                        <a class="btn ml-auto p-0 pr-1" href="{% url 'app_user:profile' profile.id %}">
+                        <a class="btn ml-auto p-0 pr-1" href="{% url 'account:profile' profile.id %}">
                             <i class="fas fa-share"></i>
                         </a>
                     {% endif %}

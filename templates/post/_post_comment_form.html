@@ -1,4 +1,4 @@
-<form action="{% url 'app_post:app_comment:create' post_id %}" method="post">{% csrf_token %}
+<form action="{% url 'post:comment:create' post_id %}" method="post">{% csrf_token %}
     <div class="input-group comment-field">
         <input type="hidden" name="comment_id" />
         <input type="hidden" name="origin_id" />

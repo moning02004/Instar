@@ -16,7 +16,7 @@
 
             <form action="" method="post">{% csrf_token %}
                 <textarea class="pre-box w-100 card-body custom-scroll" name="content" rows="5">{{ post.content }}</textarea>
-                <a href="{% url 'app_post:detail' post.id %}" class="btn float-right">돌아가기</a>
+                <a href="{% url 'post:detail' post.id %}" class="btn float-right">돌아가기</a>
                 <button class="btn float-right">저장</button>
             </form>
         </div>
