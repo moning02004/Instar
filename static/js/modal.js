@@ -24,16 +24,16 @@ $(document).ready(function() {
         let post = $parent.find('input[name="post_id"]').val()
         let author = $parent.find('input[name="author_id"]').val()
 
-        if ($(this).val() == 'profile') {
-            location.href = '/user/' + author
-        } else if ($(this).val() == 'detail') {
-            location.href = '/post/' + post
-        } else if ($(this).val() == 'update') {
-            location.href = '/post/' + post + '/update'
-        } else if ($(this).val() == 'delete') {
+        if ($(this).val() === 'profile') {
+            location.href = '/users/' + author
+        } else if ($(this).val() === 'detail') {
+            location.href = '/posts/' + post
+        } else if ($(this).val() === 'update') {
+            location.href = '/posts/' + post + '/update'
+        } else if ($(this).val() === 'delete') {
             if (!confirm('정말 삭제하시겠습니까? 되돌릴 수 없습니다.')) return false;
             $.ajax({
-                url: '/post/' + post + '/delete',
+                url: '/posts/' + post + '/delete',
                 method: 'post',
                 success: function(response) {
                     location.replace('/')
@@ -43,7 +43,7 @@ $(document).ready(function() {
                 },
                 timeout: 2000
             })
-        } else if ($(this).val() == 'cancel') {
+        } else if ($(this).val() === 'cancel') {
             $currentModal.css('display', 'none');
         }
     });
@@ -101,10 +101,10 @@ $(document).ready(function() {
 
     $('body').on('click', '.result', function(e) {
         let url = '';
-        if ($(this).val().split(' ')[0] == 'user') {
-            url = '/user/' + $(this).val().split(' ')[1];
+        if ($(this).val().split(' ')[0] === 'user') {
+            url = '/users/' + $(this).val().split(' ')[1];
         } else {
-            url = '/post?search=' + $(this).val().split(' ')[1];
+            url = '/posts?search=' + $(this).val().split(' ')[1];
         }
         location.href = url;
     });

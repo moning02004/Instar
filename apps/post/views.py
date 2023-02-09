@@ -83,7 +83,7 @@ class PostUpdateView(IsOwnerMixin, UpdateView):
     failed_template_name = 'error.html'
 
     def get_success_url(self):
-        return f'/post/{self.get_object().id}'
+        return f'/posts/{self.get_object().id}'
 
 
 class PostDeleteView(IsOwnerMixin, DeleteView):

@@ -5,7 +5,7 @@ $(document).ready(function() {
     $bPostHeart.click(function(e) {
         let $heart = $(this);
         $.ajax({
-            url: '/post/'  + $heart.attr('id') + '/heart',
+            url: '/posts/'  + $heart.attr('id') + '/heart',
             method: 'post',
             success: function(response) {
                 let number = parseInt($heart.find('small').text());
@@ -30,7 +30,7 @@ $(document).ready(function() {
         let comment_id = $heart.attr('id').split('-')[1];
 
         $.ajax({
-            url: '/post/'  + post_id + '/comment/'+ comment_id +'/heart',
+            url: '/posts/'  + post_id + '/comments/'+ comment_id +'/heart',
             method: 'post',
             success: function(response) {
                 let number = parseInt($heart.find('small').text());
@@ -63,7 +63,7 @@ $(document).ready(function() {
             return false;
         }
         $.post({
-            url: '/post/create',
+            url: '/posts/create',
             data: formData,
             enctype: 'multipart/form-data',
             success: function(response) {
