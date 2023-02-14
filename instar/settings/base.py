@@ -18,7 +18,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", "0.0.0.0", "web"]
 
 DATA_UPLOAD_MAX_NUMBER_FIELDS = 10240
 
@@ -97,7 +97,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'asia/Seoul'
+TIME_ZONE = 'Asia/Seoul'
 
 USE_I18N = True
 
@@ -109,8 +109,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = str(BASE_DIR / "staticfiles")
 STATICFILES_DIRS = [
-    str(BASE_DIR / "static")
+    str(BASE_DIR / 'static')
 ]
 
 MEDIA_URL = '/files/'
