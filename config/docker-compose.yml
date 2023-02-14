@@ -11,7 +11,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - share_database:/var/lib
+      - share_database:/var/lib/postgresql
       - share_database:/var/log
 
   web:

@@ -2,12 +2,12 @@
 
 ## 실행
 ```bash
-python3 -m venv venv
-source venv/bin/activate
-pip3 install -r requirements.txt
+docker-compose -c config/docker-compose.yml up -d --build  # container 시작
+docker-compose -c config/docker-compose.yml down  # container 삭제
 
-python3 manage.py migrate --settings instar.settings.local
-python3 manage.py runserver --settings instar.settings.local
+docker-compose -c config/docker-compose.yml stop     # container 종료
+docker-compose -c config/docker-compose.yml start    # container 실행
+docker-compose -c config/docker-compose.yml restart  # container 재실행
 ```
 
 ## 최종
