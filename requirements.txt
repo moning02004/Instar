@@ -1,4 +1,4 @@
-Django==3.2.17
+Django==3.2.19
 Pillow
 psycopg2
 gunicorn
